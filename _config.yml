@@ -6,7 +6,7 @@
 title: Never_yu's Blog
 subtitle: 认真的人才有资格开玩笑
 description: Stay Hungry,Stay Foolish
-author: Never_yu
+author: liujianghong
 language: zh-Hans
 timezone:
 email: never_yu@foxmail.com
@@ -39,10 +39,10 @@ post_asset_folder: false
 relative_link: false
 future: true
 highlight:
-  enable: true
-  line_number: true
-  auto_detect: false
-  tab_replace:
+    enable: true
+    line_number: true
+    auto_detect: false
+    tab_replace:
 
 # Category & Tag
 default_category: uncategorized
@@ -71,10 +71,10 @@ theme: next
 ## Docs: https://hexo.io/docs/deployment.html
 # 这是提交到github的配置，启用本地服务器，请注释
 deploy:
-  type: git
-  repository: git@github.com:Neveryu/Neveryu.github.io.git
-  branch: master
-  message: 'Daily updated：{{now("YYYY-MM-DD HH:mm:ss")}} by Never_yu personal PC'
+    type: git
+    repository: git@github.com:SKHon/skhon.github.io.git
+    branch: master
+    message: 'Daily updated：{{now("YYYY-MM-DD HH:mm:ss")}} by liujiangnhongn personal PC'
 
 # 自己添加的功能
 #1.头像
@@ -82,21 +82,21 @@ avatar: /avatar/avatar.png
 
 #2.自动生成sitemap
 sitemap:
-  path: sitemap.xml
+    path: sitemap.xml
 baidusitemap:
-  path: baidusitemap.xml
+    path: baidusitemap.xml
 
 #3.本地站内搜索
 search:
-  path: search.xml
-  field: post
+    path: search.xml
+    field: post
 
 # Plugins: http://hexo.io/plugins/
 plugins: hexo-generate-feed
 
 # hexo-symbols-count-time 统计字数
 symbols_count_time:
-  symbols: true
-  time: true
-  total_symbols: true
-  total_time: true
+    symbols: true
+    time: true
+    total_symbols: true
+    total_time: true
