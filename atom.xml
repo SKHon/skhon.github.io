@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Never_yu&#39;s Blog</title>
-  <icon>https://www.gravatar.com/avatar/9bef1a6653a58edaedf8e7be2f181709</icon>
-  <subtitle>认真的人才有资格开玩笑</subtitle>
+  <title>前端架构路上的酸甜苦辣</title>
+  <icon>https://www.gravatar.com/avatar/bafeed710faffad62197c060e0e91fda</icon>
+  <subtitle>我知道我笨，但是我在努力</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://neveryu.github.io/"/>
@@ -11,7 +11,7 @@
   
   <author>
     <name>liujianghong</name>
-    <email>never_yu@foxmail.com</email>
+    <email>ljhtianhong@163.com</email>
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
