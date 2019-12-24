@@ -92,7 +92,7 @@ search:
     field: post
 
 # Plugins: http://hexo.io/plugins/
-plugins: hexo-generate-feed
+#plugins: hexo-generate-feed
 
 # hexo-symbols-count-time 统计字数
 symbols_count_time:

@@ -20,7 +20,7 @@
   },
   "homepage": "https://neveryu.github.io/",
   "hexo": {
-    "version": "3.2.2"
+    "version": "3.9.0"
   },
   "dependencies": {
     "hexo": "^3.2.2",
