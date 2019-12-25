@@ -5,7 +5,7 @@
     
     <entry>
       <title><![CDATA[AMD，CMD 规范详解]]></title>
-      <url>https://neveryu.github.io/2019/03/20/2019-03-20-amd-cmd/</url>
+      <url>https://neveryu.github.io/2019/04/20/amd-cmd/</url>
       <content type="html"><![CDATA[<p>当我们了解了 <a href="https://neveryu.github.io/2017/03/07/commonjs/">CommonJS</a> 以后，<code>CommonJS</code> 规范加载模块是同步的，也就是说，只有加载完成，才能执行后面的操作。<br>由于 <code>Node.js</code> 主要用于服务器编程，模块文件一般都已经存在于本地硬盘，所以加载起来比较快，不用考虑非同步加载的方式，所以 <code>CommonJS</code> 规范比较适用。<br>但是，如果是浏览器环境，要从服务器端加载模块，这时就必须采用非同步模式。为什么呢？</p>
 <a id="more"></a>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> math = <span class="built_in">require</span>(<span class="string">"math"</span>);</span><br><span class="line">math.add(<span class="number">2</span>, <span class="number">3</span>);</span><br></pre></td></tr></table></figure>
@@ -57,7 +57,7 @@
 <p>require.config() 接受一个配置对象，这个对象除了有前面说过的 paths 属性之外，还有一个 shim 属性，专门用来配置不兼容的模块。具体来说，每个模块要定义：<br>（1）exports 值（输出的变量名），表明这个模块外部调用时的名称；<br>（2）deps 数组，表明该模块的依赖性。<br>比如，jQuery 的插件可以这样定义：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">shim: &#123;</span><br><span class="line">　<span class="string">'jquery.scroll'</span>: &#123;</span><br><span class="line">　　deps: [<span class="string">'jquery'</span>],</span><br><span class="line">　　exports: <span class="string">'jQuery.fn.scroll'</span></span><br><span class="line">　&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="CMD"><a href="#CMD" class="headerlink" title="CMD"></a>CMD</h1><p><a href="https://github.com/seajs/seajs/issues/277" target="_blank" rel="noopener">CMD</a> 是 <a href="https://github.com/seajs/seajs" target="_blank" rel="noopener">sea.js</a> 在推广过程中对模块定义的规范化产出。</p>
-<h3 id="CMD-模块定义"><a href="#CMD-模块定义" class="headerlink" title="CMD 模块定义"></a>CMD 模块定义</h3><p>在 CMD 规范中，一个模块就是一个文件。define 是一个全局函数，用来定义模块。<br>define 接受 factory 参数，factory 可以是一个函数，也可以是一个对象或字符串。<br>factory 为对象、字符串时，表示模块的接口就是该对象、字符串。比如可以定义一个 JSON 数据模块：</p>
+<h2 id="CMD-模块定义"><a href="#CMD-模块定义" class="headerlink" title="CMD 模块定义"></a>CMD 模块定义</h2><p>在 CMD 规范中，一个模块就是一个文件。define 是一个全局函数，用来定义模块。<br>define 接受 factory 参数，factory 可以是一个函数，也可以是一个对象或字符串。<br>factory 为对象、字符串时，表示模块的接口就是该对象、字符串。比如可以定义一个 JSON 数据模块：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">define(&#123; <span class="attr">foo</span>: <span class="string">"bar"</span> &#125;);</span><br></pre></td></tr></table></figure>
 <p>也可以通过字符串定义模板模块：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">define(<span class="string">"I am a template.My name is &#123;&#123;name&#125;&#125;."</span>);</span><br></pre></td></tr></table></figure>

@@ -3,13 +3,13 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Never_yu's Blog
-subtitle: 认真的人才有资格开玩笑
+title: 前端架构路上的酸甜苦辣
+subtitle: 我知道我笨，但是我在努力
 description: Stay Hungry,Stay Foolish
 author: liujianghong
 language: zh-Hans
 timezone:
-email: never_yu@foxmail.com
+email: ljhtianhong@163.com
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'

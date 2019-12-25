@@ -1,6 +1,6 @@
 ---
 title: AMD，CMD 规范详解
-date: 2019-03-20 03:25:24
+date: 2019-04-20 03:25:24
 categories: 前端
 tags: [JavaScript]
 comments: false
@@ -144,7 +144,7 @@ shim: {
 
 [CMD](https://github.com/seajs/seajs/issues/277) 是 [sea.js](https://github.com/seajs/seajs) 在推广过程中对模块定义的规范化产出。
 
-### CMD 模块定义
+## CMD 模块定义
 
 在 CMD 规范中，一个模块就是一个文件。define 是一个全局函数，用来定义模块。
 define 接受 factory 参数，factory 可以是一个函数，也可以是一个对象或字符串。
