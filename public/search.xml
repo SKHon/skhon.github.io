@@ -5,8 +5,8 @@
     
     <entry>
       <title><![CDATA[AMD，CMD 规范详解]]></title>
-      <url>https://neveryu.github.io/2019/04/20/amd-cmd/</url>
-      <content type="html"><![CDATA[<p>当我们了解了 <a href="https://neveryu.github.io/2017/03/07/commonjs/">CommonJS</a> 以后，<code>CommonJS</code> 规范加载模块是同步的，也就是说，只有加载完成，才能执行后面的操作。<br>由于 <code>Node.js</code> 主要用于服务器编程，模块文件一般都已经存在于本地硬盘，所以加载起来比较快，不用考虑非同步加载的方式，所以 <code>CommonJS</code> 规范比较适用。<br>但是，如果是浏览器环境，要从服务器端加载模块，这时就必须采用非同步模式。为什么呢？</p>
+      <url>https://skhon.github.io/2019/04/20/amd-cmd/</url>
+      <content type="html"><![CDATA[<p>当我们了解了 <a href="https://neveryu.github.io/2017/03/07/commonjs/" target="_blank" rel="noopener">CommonJS</a> 以后，<code>CommonJS</code> 规范加载模块是同步的，也就是说，只有加载完成，才能执行后面的操作。<br>由于 <code>Node.js</code> 主要用于服务器编程，模块文件一般都已经存在于本地硬盘，所以加载起来比较快，不用考虑非同步加载的方式，所以 <code>CommonJS</code> 规范比较适用。<br>但是，如果是浏览器环境，要从服务器端加载模块，这时就必须采用非同步模式。为什么呢？</p>
 <a id="more"></a>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> math = <span class="built_in">require</span>(<span class="string">"math"</span>);</span><br><span class="line">math.add(<span class="number">2</span>, <span class="number">3</span>);</span><br></pre></td></tr></table></figure>
 <p>第二行 <code>math.add(2, 3)</code>，在第一行 <code>require(&#39;math&#39;)</code> 之后运行，因此必须等 <code>math.js</code> 加载完成。也就是说，如果加载时间很长，整个应用就会停在那里等。<br>对于浏览器，这是一个大问题，因为模块都放在服务器端。等待时间取决于网速的快慢，可能要等很长时间，浏览器处理“假死”状态。</p>
