@@ -23,13 +23,6 @@
   </url>
   
   <url>
-    <loc>https://skhon.github.io/offline.html</loc>
-    
-    <lastmod>2019-10-07T23:57:28.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://skhon.github.io/404.html</loc>
     
     <lastmod>2019-10-07T23:57:28.000Z</lastmod>
@@ -37,7 +30,7 @@
   </url>
   
   <url>
-    <loc>https://skhon.github.io/example/index.html</loc>
+    <loc>https://skhon.github.io/offline.html</loc>
     
     <lastmod>2019-10-07T23:57:28.000Z</lastmod>
     
@@ -45,6 +38,13 @@
   
   <url>
     <loc>https://skhon.github.io/categories/index.html</loc>
+    
+    <lastmod>2019-10-07T23:57:28.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://skhon.github.io/example/index.html</loc>
     
     <lastmod>2019-10-07T23:57:28.000Z</lastmod>
     
