@@ -3,7 +3,7 @@ title: AMD，CMD 规范详解
 date: 2019-04-20 03:25:24
 categories: 前端
 tags: [JavaScript]
-comments: false
+comments: true
 ---
 
 当我们了解了 [CommonJS](https://neveryu.github.io/2017/03/07/commonjs/) 以后，`CommonJS` 规范加载模块是同步的，也就是说，只有加载完成，才能执行后面的操作。
