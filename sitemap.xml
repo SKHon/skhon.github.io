@@ -2,16 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://skhon.github.io/about/index.html</loc>
+    <loc>https://skhon.github.io/2019/04/20/amd-cmd/</loc>
     
-    <lastmod>2019-12-25T03:04:42.249Z</lastmod>
+    <lastmod>2019-12-26T05:27:00.356Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://skhon.github.io/2019/04/20/amd-cmd/</loc>
+    <loc>https://skhon.github.io/about/index.html</loc>
     
-    <lastmod>2019-12-24T16:53:34.058Z</lastmod>
+    <lastmod>2019-12-25T03:04:42.249Z</lastmod>
     
   </url>
   
@@ -23,13 +23,6 @@
   </url>
   
   <url>
-    <loc>https://skhon.github.io/offline.html</loc>
-    
-    <lastmod>2019-10-07T23:57:28.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://skhon.github.io/404.html</loc>
     
     <lastmod>2019-10-07T23:57:28.000Z</lastmod>
@@ -37,7 +30,21 @@
   </url>
   
   <url>
+    <loc>https://skhon.github.io/offline.html</loc>
+    
+    <lastmod>2019-10-07T23:57:28.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://skhon.github.io/categories/index.html</loc>
+    
+    <lastmod>2019-10-07T23:57:28.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://skhon.github.io/example/index.html</loc>
     
     <lastmod>2019-10-07T23:57:28.000Z</lastmod>
     
@@ -59,13 +66,6 @@
   
   <url>
     <loc>https://skhon.github.io/weblog/index.html</loc>
-    
-    <lastmod>2019-10-07T23:57:28.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://skhon.github.io/example/index.html</loc>
     
     <lastmod>2019-10-07T23:57:28.000Z</lastmod>
     
