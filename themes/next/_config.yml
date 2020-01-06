@@ -102,10 +102,10 @@ creative_commons:
 # ---------------------------------------------------------------
 
 # Schemes
-scheme: Muse
+#scheme: Muse
 #scheme: Mist
 #scheme: Pisces
-#scheme: Gemini
+scheme: Gemini
 
 # ---------------------------------------------------------------
 # Menu Settings
@@ -401,7 +401,7 @@ github_banner:
 # ---------------------------------------------------------------
 
 font:
-  enable: false
+  enable: true
 
   # Uri of fonts host, e.g. //fonts.googleapis.com (Default).
   host:
@@ -432,7 +432,8 @@ font:
   # Font settings for posts (.post-body).
   posts:
     external: true
-    family:
+    family: Lato
+    size: 5
 
   # Font settings for <code> and code blocks.
   codes:
@@ -1009,3 +1010,24 @@ vendors:
 css: css
 js: js
 images: images
+
+# share功能
+needmoreshare2:
+  enable: true
+  postbottom:
+    enable: true #是否开启博客分享按钮
+    options:
+      iconStyle: box
+      boxForm: horizontal
+      position: bottomCenter
+      networks: Weibo,Wechat,Douban,QQZone,Twitter,Facebook
+  float:
+    enable: true #网站分享按钮
+    options:
+      iconStyle: box
+      boxForm: horizontal
+      position: middleRight
+      networks: Weibo,Wechat,Douban,QQZone,Twitter,Facebook
+
+baidushare: true
+jiathis: true
