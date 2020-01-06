@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title><![CDATA[谈谈js中的hook]]></title>
+      <url>https://skhon.github.io/2020/01/03/hook-js/</url>
+      <content type="html"><![CDATA[<h2 id="什么是-hook"><a href="#什么是-hook" class="headerlink" title="什么是 hook"></a>什么是 hook</h2><p>hook 翻译过来就是钩子的意思。实质上是一种匹配的机制。可以先举个例子说明一下 hook 是什么。比如，前端和后端联调的时候，后端在 response 的时候，会给你返回各种状态码，你可以根据不同的状态码来分别进行前端的不同操作。这种逻辑，大多数同学会想到条件语句来实现:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (code === <span class="number">200</span>) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Ok"</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (code === <span class="number">500</span>) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Internal server error"</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (code === <span class="number">404</span>) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Not found"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当然也可以用 switch 来实现。那我们这里可以用 hook 来实现的话，就感觉代码很优雅，并且执行效率也相对快一些。我们可以把所有可能的 code 放在一个 list 中，code 作为 key，对应的内容作为 value，然后来进行匹配。代码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> codeList = &#123;</span><br><span class="line">    <span class="number">200</span>: <span class="string">"Ok"</span>,</span><br><span class="line">    <span class="number">404</span>: <span class="string">"Not founnd"</span>,</span><br><span class="line">    <span class="number">500</span>: <span class="string">"Internal server error"</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">print</span>(<span class="params">input</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(codeList[input]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样你输入对应的 key 值，那输出的就是对应的 value 值。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 前端 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> JavaScript </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[AMD，CMD 规范详解]]></title>
       <url>https://skhon.github.io/2019/04/20/amd-cmd/</url>
       <content type="html"><![CDATA[<p>当我们了解了 <a href="https://neveryu.github.io/2017/03/07/commonjs/" target="_blank" rel="noopener">CommonJS</a> 以后，<code>CommonJS</code> 规范加载模块是同步的，也就是说，只有加载完成，才能执行后面的操作。<br>由于 <code>Node.js</code> 主要用于服务器编程，模块文件一般都已经存在于本地硬盘，所以加载起来比较快，不用考虑非同步加载的方式，所以 <code>CommonJS</code> 规范比较适用。<br>但是，如果是浏览器环境，要从服务器端加载模块，这时就必须采用非同步模式。为什么呢？</p>
