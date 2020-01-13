@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://skhon.github.io/"/>
-  <updated>2020-01-09T06:04:19.017Z</updated>
+  <updated>2020-01-13T08:16:18.592Z</updated>
   <id>https://skhon.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>node调试</title>
+    <link href="https://skhon.github.io/2020/01/09/node-debug/"/>
+    <id>https://skhon.github.io/2020/01/09/node-debug/</id>
+    <published>2020-01-09T03:25:24.000Z</published>
+    <updated>2020-01-13T08:16:18.592Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="node调试的几种方法"><a href="#node调试的几种方法" class="headerlink" title="node调试的几种方法"></a>node调试的几种方法</h2><p>在看hobber源码的时候，想看下一个请求是如何在hobber中跑的，我开始根据自己的理解以及猜测，是在node_modules中的包里打console.log，这种方式感觉太累了，并且对整个hobber框架的理解效率不是很高，于是我问了一下hobber作者（黄老师）<a id="more"></a>,黄老师给我的答复是，他当时写hobber的时候，调试都是console。。。好吧，我感觉我作为一个刚刚接触hobber的新手来说，光console好像救不了我。于是就研究了一下node的调试方式。</p><p>网上有很多相关调试node的文章，但是笔者感觉最好还是看官网，我认为学习任何一门技术，首要看的资料是官网，因为那个是最权威的。我这里记录一下我用vscode调试node的一种方式。</p><p>配置一下launch.json文件即可：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 使用 IntelliSense 了解相关属性。 </span></span><br><span class="line">    <span class="comment">// 悬停以查看现有属性的描述。</span></span><br><span class="line">    <span class="comment">// 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387</span></span><br><span class="line">    <span class="string">"version"</span>: <span class="string">"0.2.0"</span>,</span><br><span class="line">    <span class="string">"configurations"</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">"type"</span>: <span class="string">"node"</span>,</span><br><span class="line">            <span class="string">"request"</span>: <span class="string">"launch"</span>,</span><br><span class="line">            <span class="string">"name"</span>: <span class="string">"hobber-debug"</span>,</span><br><span class="line">            <span class="string">"program"</span>: <span class="string">"$&#123;workspaceFolder&#125;/server/src/index.ts"</span>,</span><br><span class="line">            <span class="comment">// "preLaunchTask": "tsc: build - tsconfig.json",</span></span><br><span class="line">            <span class="string">"outFiles"</span>: [</span><br><span class="line">                <span class="string">"$&#123;workspaceFolder&#125;/server/dist/*.js"</span></span><br><span class="line">            ]</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;node调试的几种方法&quot;&gt;&lt;a href=&quot;#node调试的几种方法&quot; class=&quot;headerlink&quot; title=&quot;node调试的几种方法&quot;&gt;&lt;/a&gt;node调试的几种方法&lt;/h2&gt;&lt;p&gt;在看hobber源码的时候，想看下一个请求是如何在hobber中跑的，我开始根据自己的理解以及猜测，是在node_modules中的包里打console.log，这种方式感觉太累了，并且对整个hobber框架的理解效率不是很高，于是我问了一下hobber作者（黄老师）
+    
+    </summary>
+    
+      <category term="前端" scheme="https://skhon.github.io/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+      <category term="node" scheme="https://skhon.github.io/tags/node/"/>
+    
+  </entry>
   
   <entry>
     <title>谈谈js中的hook</title>
