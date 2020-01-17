@@ -26,7 +26,19 @@
     <entry>
       <title><![CDATA[单元测试]]></title>
       <url>https://skhon.github.io/2020/01/14/unit-test/</url>
-      <content type="html"><![CDATA[<p>## </p>
+      <content type="html"><![CDATA[<h2 id="什么是单元测试"><a href="#什么是单元测试" class="headerlink" title="什么是单元测试"></a>什么是单元测试</h2><p>单元测试也叫做模块测试，就是对一个一个模块，来进行正确性检验对测试工作。如果接触测试的工作，测试人员在测你的项目之前都会写一些测试用例，然后这些测试用例可以覆盖到各种情况，然后用这些测试用例再一一检测你的程序，这是测<a id="more"></a>试功能做的一部分。我们项目做单元测试也就是为了我们的程序能够尽可能的少出 bug。</p>
+<h2 id="node-的单元测试"><a href="#node-的单元测试" class="headerlink" title="node 的单元测试"></a>node 的单元测试</h2><p>单元测试的框架很多，可以看一下各种单元测试框架的对比：<br><img src="/images/test01.png" alt><br>mocha 用的最多，我用的也是 mocha，但是 mocha 没有断言库，那配一个 chai。</p>
+<h2 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h2><ol>
+<li>先安装 mocha，chai</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm i --save-dev mocha</span><br><span class="line">npm i --save-dev chai</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>写 demo</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// modules/add.js</span></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// test/add.spec.js</span></span><br><span class="line"><span class="keyword">const</span> &#123; expect &#125; = <span class="built_in">require</span>(<span class="string">"chai"</span>);</span><br><span class="line"><span class="keyword">const</span> add = <span class="built_in">require</span>(<span class="string">"../modules/add"</span>);</span><br><span class="line">describe(<span class="string">"测试加法模块"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    it(<span class="string">"1加2,应该为3"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        expect(add(<span class="number">1</span>, <span class="number">2</span>)).to.equal(<span class="number">3</span>);</span><br><span class="line">        <span class="comment">//assert.equal(-1, [1, 2, 3].indexOf(-1));</span></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx mocha add.spec.js</span><br></pre></td></tr></table></figure>
+<p><img src="/images/test02.png" alt></p>
 ]]></content>
       
         <categories>
