@@ -4,73 +4,8 @@
   
     
     <entry>
-      <title><![CDATA[jmeter压测]]></title>
-      <url>https://skhon.github.io/2020/01/15/jmeter-test/</url>
-      <content type="html"><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>这两天我负责的一个 node 中间层框架 hobber，在业务方的那边的项目压测中，当 qps 达到 1500 左右时，出现大量 504。由于压测线上服务在半夜，当时我也不在现场，所以，我决定自己压一下，目的有两个，一个是压我们自己的服<a id="more"></a>务，看 hobber 是不是能够压到当初承诺的 qps 2500，另一个是想复现一下那天业务方压测出现的 504 问题。</p>
-<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><p>我用的是 jmeter，<a href="http://jmeter.apache.org/download_jmeter.cgi" target="_blank" rel="noopener">下载地址</a></p>
-<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><p>进入 jmeter 目录下对 bin 文件，执行命令：sh jmeter</p>
-<h3 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h3><p>jmeter 压测的时候，一般不用图像化工具压，一般是执行脚本压，如果图像化工具直接压，太耗性能了，所以机器对资源尽量留给发压力。<br>但是脚本的话，一般是通过图形化界面配，然后把脚本导出来。</p>
-<ol>
-<li>创建线程组<br>在“测试计划”上右键 【添加】–&gt;【Threads(Users)】–&gt;【线程组】。<br><img src="/images/jmeter/1.png" alt></li>
-</ol>
-<p>设置线程数和循环次数。我这里设置线程数为 500，循环一次。<br><img src="/images/jmeter/2.png" alt></p>
-<ol start="2">
-<li>配置元件<br>在我们刚刚创建的线程组上右键 【添加】–&gt;【配置元件】–&gt;【HTTP 请求默认值】。<br><img src="/images/jmeter/3.png" alt><br>配置我们需要进行测试的程序协议、地址和端口:<br><img src="/images/jmeter/4.png" alt><br><code>当所有的接口测试的访问域名和端口都一样时，可以使用该元件，一旦服务器地址变更，只需要修改请求默认值即可。</code></li>
-<li><p>构造 HTTP 请求<br>在“线程组”右键 【添加-】-&gt;【samlper】–&gt;【HTTP 请求】设置我们需要测试的 API 的请求路径和数据。我这里是用的 json<br><img src="/images/jmeter/5.png" alt></p>
-</li>
-<li><p>添加 HTTP 请求头<br>在我们刚刚创建的线程组上右键 【添加】–&gt;【配置元件】–&gt;【HTTP 信息头管理器】。</p>
-</li>
-</ol>
-<p>因为我要传输的数据为 json，所以设置一个 Content-Type:application/json<br><img src="/images/jmeter/6.png" alt></p>
-<ol start="5">
-<li>添加断言<br>在我们刚刚创建的线程组上右键 【添加】–&gt;【断言】–&gt;【响应断言】。</li>
-</ol>
-<p>根据响应的数据来判断请求是否正常。我在这里只判断的响应代码是否为 200。还可以配置错误信息<br><img src="/images/jmeter/7.png" alt></p>
-<ol start="6">
-<li>添加察看结果树<br>在我们刚刚创建的线程组上右键 【添加】–&gt;【监听器】–&gt;【察看结果树】。</li>
-</ol>
-<p>直接添加，然后点击运行按钮就可以看到结果了。<br><img src="/images/jmeter/8.png" alt></p>
-<ol start="7">
-<li>添加 Summary Report<br>在我们刚刚创建的线程组上右键 【添加】–&gt;【监听器】–&gt;【Summary Report】。</li>
-</ol>
-<p>直接添加，然后点击运行按钮就可以看到结果了。<br><img src="/images/jmeter/9.png" alt></p>
-<ol start="8">
-<li>测试计划创建完成<br>文件 -&gt; 保存测试计划</li>
-</ol>
-<h2 id="执行测试计划"><a href="#执行测试计划" class="headerlink" title="执行测试计划"></a>执行测试计划</h2><p>前面我们说过，执行测试计划不能用 GUI，需要用命令行来执行。<br><img src="/images/jmeter/10.png" alt></p>
-<p>我这里执行的命令为：</p>
-<p>jmeter -n -t testplan/RedisLock.jmx -l testplan/result/result.txt -e -o testplan/webreport</p>
-<p>说明：<br>testplan/RedisLock.jmx 为测试计划文件路径<br>testplan/result/result.txt 为测试结果文件路径<br>testplan/webreport 为 web 报告保存路径。</p>
-<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>如果发压机端口不够用，可能会出现这样的问题：</p>
-<font color="#DC143C" face="黑体">Non HTTP response code: java.net.NoRouteToHostException/Non HTTP response message: Cannot assign requested address (Address not available)</font>
-
-<p>解决办法：</p>
-<ol>
-<li>调低端口释放后的等待时间， 默认为 60s， 修改为 15~30s<br>echo 30 &gt; /proc/sys/net/ipv4/tcp_fin_timeout</li>
-<li>修改 tcp/ip 协议配置， 通过配置/proc/sys/net/ipv4/tcp_tw_resue, 默认为 0， 修改为 1， 释放 TIME_WAIT 端口给新连接使用。<br>echo 1 &gt; /proc/sys/net/ipv4/tcp_tw_reuse</li>
-<li>修改 tcp/ip 协议配置，快速回收 socket 资源， 默认为 0， 修改为 1.<br>echo 1 &gt; /proc/sys/net/ipv4/tcp_tw_recycle</li>
-<li>执行：sysctl -p ，使设置立即生效。</li>
-</ol>
-]]></content>
-      
-        <categories>
-            
-            <category> 前端 </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> node </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
       <title><![CDATA[JavaScript Errors and Stack Traces]]></title>
-      <url>https://skhon.github.io/2020/01/15/js-stack-trace/</url>
+      <url>https://skhon.github.io/2020/02/26/js-stack-trace/</url>
       <content type="html"><![CDATA[<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>今天将讨论错误和堆栈跟踪以及如何处理它们。</p>
 <p>有时人们不会关注这些细节，但是，如果您正在编写与测试或错误相关的任何库，那么这些知识无疑会很有用。<a id="more"></a> 例如，本周在 Chai，我们有一个很棒的 Pull Request，它极大地改善了我们处理堆栈跟踪的方式，以便用户在断言失败时获得更多信息。</p>
 <p>通过操作堆栈跟踪，您可以清理无用的数据并集中精力处理重要的事情。 同样，在了解错误的确切含义及其属性后，您会更加自信地利用它。</p>
@@ -162,6 +97,71 @@
 <li>如果我们嵌套了断言，则仍必须使用当前断言包装器方法作为删除堆栈中下一帧的参考点，因此我们将当前的 ssfi（启动栈功能指示器）传递给我们正在创建的断言，以便可以保留它</li>
 </ul>
 <p>我也强烈建议您阅读@meeber 的评论，以了解它。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 前端 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> node </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[jmeter压测]]></title>
+      <url>https://skhon.github.io/2020/02/25/jmeter-test/</url>
+      <content type="html"><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>这两天我负责的一个 node 中间层框架 hobber，在业务方的那边的项目压测中，当 qps 达到 1500 左右时，出现大量 504。由于压测线上服务在半夜，当时我也不在现场，所以，我决定自己压一下，目的有两个，一个是压我们自己的服<a id="more"></a>务，看 hobber 是不是能够压到当初承诺的 qps 2500，另一个是想复现一下那天业务方压测出现的 504 问题。</p>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><p>我用的是 jmeter，<a href="http://jmeter.apache.org/download_jmeter.cgi" target="_blank" rel="noopener">下载地址</a></p>
+<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><p>进入 jmeter 目录下对 bin 文件，执行命令：sh jmeter</p>
+<h3 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h3><p>jmeter 压测的时候，一般不用图像化工具压，一般是执行脚本压，如果图像化工具直接压，太耗性能了，所以机器对资源尽量留给发压力。<br>但是脚本的话，一般是通过图形化界面配，然后把脚本导出来。</p>
+<ol>
+<li>创建线程组<br>在“测试计划”上右键 【添加】–&gt;【Threads(Users)】–&gt;【线程组】。<br><img src="/images/jmeter/1.png" alt></li>
+</ol>
+<p>设置线程数和循环次数。我这里设置线程数为 500，循环一次。<br><img src="/images/jmeter/2.png" alt></p>
+<ol start="2">
+<li>配置元件<br>在我们刚刚创建的线程组上右键 【添加】–&gt;【配置元件】–&gt;【HTTP 请求默认值】。<br><img src="/images/jmeter/3.png" alt><br>配置我们需要进行测试的程序协议、地址和端口:<br><img src="/images/jmeter/4.png" alt><br><code>当所有的接口测试的访问域名和端口都一样时，可以使用该元件，一旦服务器地址变更，只需要修改请求默认值即可。</code></li>
+<li><p>构造 HTTP 请求<br>在“线程组”右键 【添加-】-&gt;【samlper】–&gt;【HTTP 请求】设置我们需要测试的 API 的请求路径和数据。我这里是用的 json<br><img src="/images/jmeter/5.png" alt></p>
+</li>
+<li><p>添加 HTTP 请求头<br>在我们刚刚创建的线程组上右键 【添加】–&gt;【配置元件】–&gt;【HTTP 信息头管理器】。</p>
+</li>
+</ol>
+<p>因为我要传输的数据为 json，所以设置一个 Content-Type:application/json<br><img src="/images/jmeter/6.png" alt></p>
+<ol start="5">
+<li>添加断言<br>在我们刚刚创建的线程组上右键 【添加】–&gt;【断言】–&gt;【响应断言】。</li>
+</ol>
+<p>根据响应的数据来判断请求是否正常。我在这里只判断的响应代码是否为 200。还可以配置错误信息<br><img src="/images/jmeter/7.png" alt></p>
+<ol start="6">
+<li>添加察看结果树<br>在我们刚刚创建的线程组上右键 【添加】–&gt;【监听器】–&gt;【察看结果树】。</li>
+</ol>
+<p>直接添加，然后点击运行按钮就可以看到结果了。<br><img src="/images/jmeter/8.png" alt></p>
+<ol start="7">
+<li>添加 Summary Report<br>在我们刚刚创建的线程组上右键 【添加】–&gt;【监听器】–&gt;【Summary Report】。</li>
+</ol>
+<p>直接添加，然后点击运行按钮就可以看到结果了。<br><img src="/images/jmeter/9.png" alt></p>
+<ol start="8">
+<li>测试计划创建完成<br>文件 -&gt; 保存测试计划</li>
+</ol>
+<h2 id="执行测试计划"><a href="#执行测试计划" class="headerlink" title="执行测试计划"></a>执行测试计划</h2><p>前面我们说过，执行测试计划不能用 GUI，需要用命令行来执行。<br><img src="/images/jmeter/10.png" alt></p>
+<p>我这里执行的命令为：</p>
+<p>jmeter -n -t testplan/RedisLock.jmx -l testplan/result/result.txt -e -o testplan/webreport</p>
+<p>说明：<br>testplan/RedisLock.jmx 为测试计划文件路径<br>testplan/result/result.txt 为测试结果文件路径<br>testplan/webreport 为 web 报告保存路径。</p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>如果发压机端口不够用，可能会出现这样的问题：</p>
+<font color="#DC143C" face="黑体">Non HTTP response code: java.net.NoRouteToHostException/Non HTTP response message: Cannot assign requested address (Address not available)</font>
+
+<p>解决办法：</p>
+<ol>
+<li>调低端口释放后的等待时间， 默认为 60s， 修改为 15~30s<br>echo 30 &gt; /proc/sys/net/ipv4/tcp_fin_timeout</li>
+<li>修改 tcp/ip 协议配置， 通过配置/proc/sys/net/ipv4/tcp_tw_resue, 默认为 0， 修改为 1， 释放 TIME_WAIT 端口给新连接使用。<br>echo 1 &gt; /proc/sys/net/ipv4/tcp_tw_reuse</li>
+<li>修改 tcp/ip 协议配置，快速回收 socket 资源， 默认为 0， 修改为 1.<br>echo 1 &gt; /proc/sys/net/ipv4/tcp_tw_recycle</li>
+<li>执行：sysctl -p ，使设置立即生效。</li>
+</ol>
 ]]></content>
       
         <categories>
