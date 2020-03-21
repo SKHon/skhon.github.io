@@ -14,6 +14,7 @@ dog/.test('old dog') // true
 ```
 `点字符(.)`：匹配一个除回车（\r）、换行(\n) 、行分隔符（\u2028）和段分隔符（\u2029）以外的所有字符
 ```
+<!--more-->
 /c.t/.test('cst') // true
 /c.t/.test('c\nt') // false
 ```
