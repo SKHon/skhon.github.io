@@ -4,6 +4,121 @@
   
     
     <entry>
+      <title><![CDATA[整理一下正则]]></title>
+      <url>https://skhon.github.io/2020/03/21/regexp/</url>
+      <content type="html"><![CDATA[<h2 id="字面量字符和元字符"><a href="#字面量字符和元字符" class="headerlink" title="字面量字符和元字符"></a>字面量字符和元字符</h2><p><code>字面量字符</code>： 写的啥就匹配啥。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dog/.test(&apos;old dog&apos;) // true</span><br></pre></td></tr></table></figure></p>
+<p><code>点字符(.)</code>：匹配一个除回车（\r）、换行(\n) 、行分隔符（\u2028）和段分隔符（\u2029）以外的所有字符<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/c.t/.test(&apos;cst&apos;) // true</span><br><span class="line">/c.t/.test(&apos;c\nt&apos;) // false</span><br></pre></td></tr></table></figure></p>
+<p><code>位置字符(^ 和 $)</code>：^ 表示字符串的开始位置，$ 表示字符串的结束位置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/^test/.test(&apos;test123&apos;) // true</span><br><span class="line">/test$/.test(&apos;new test&apos;) // true</span><br><span class="line">/^test$/.test(&apos;test&apos;) // true</span><br><span class="line">/^test$/.test(&apos;test test&apos;) // false</span><br></pre></td></tr></table></figure></p>
+<p><code>选择符（|）</code>:表示“或关系”（OR），即cat|dog表示匹配cat或dog。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 正则表达式指定必须匹配11或22。</span><br><span class="line">/11|22/.test(&apos;911&apos;) // true</span><br><span class="line"></span><br><span class="line">/a(1|2)b/.test(&apos;a1b&apos;) // true</span><br></pre></td></tr></table></figure></p>
+<h2 id="转义符"><a href="#转义符" class="headerlink" title="转义符"></a>转义符</h2><p>需要反斜杠转义的，一共有12个字符：^、.、[、$、(、)、|、*、+、?、{和\。需要特别注意的是，如果使用RegExp方法生成正则对象，转义需要使用两个斜杠，因为字符串内部会先转义一次。</p>
+<h2 id="特殊字符"><a href="#特殊字符" class="headerlink" title="特殊字符"></a>特殊字符</h2><p>\cX     表示Ctrl-[X]，其中的X是A-Z之中任一个英文字母，用来匹配控制字符。<br>[\b]    匹配退格键(U+0008)，不要与\b混淆。<br>\n      匹配换行键。<br>\r      匹配回车键。<br>\t      匹配制表符 tab（U+0009）。<br>\v      匹配垂直制表符（U+000B）。<br>\f      匹配换页符（U+000C）。<br>\0      匹配null字符（U+0000）。<br>\xhh    匹配一个以两位十六进制数（\x00-\xFF）表示的字符。<br>\uhhhh  匹配一个以四位十六进制数（\u0000-\uFFFF）表示的 Unicode 字符。</p>
+<h2 id="字符类"><a href="#字符类" class="headerlink" title="字符类 []"></a>字符类 []</h2><p>字符类（class）表示有一系列字符可供选择，只要匹配其中一个就可以了。所有可供选择的字符都放在方括号内，比如[xyz] 表示x、y、z之中任选一个匹配。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/[abc]/.test(&apos;hello world&apos;) // false </span><br><span class="line">/[abc]/.test(&apos;apple&apos;) // true</span><br></pre></td></tr></table></figure>
+<h3 id="脱字符"><a href="#脱字符" class="headerlink" title="脱字符 ^"></a>脱字符 ^</h3><p>如果方括号内的第一个字符是[^]，则表示除了字符类之中的字符，其他字符都可以匹配。比如，[^xyz]表示除了x、y、z之外都可以匹配。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/[^abc]/.test(&apos;hello world&apos;) // true</span><br><span class="line">/[^abc]/.test(&apos;bbc&apos;) // false</span><br></pre></td></tr></table></figure></p>
+<p>如果方括号内没有其他字符，即只有[^]，就表示匹配一切字符，其中包括换行符。相比之下，点号作为元字符（.）是不包括换行符的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var s = &apos;Please yes\nmake my day!&apos;;</span><br><span class="line"></span><br><span class="line">s.match(/yes.*day/) // null</span><br><span class="line">s.match(/yes[^]*day/) // [ &apos;yes\nmake my day&apos;]</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>在[]中，^只有在第一位才标示非，否则就是字面量<br>在[]中，.就是字面量</p>
+</blockquote>
+<h3 id="连字符"><a href="#连字符" class="headerlink" title="连字符 -"></a>连字符 -</h3><p>某些情况下，对于连续序列的字符，连字符（-）用来提供简写形式，表示字符的连续范围。比如，[abc]可以写成[a-c]，[0123456789]可以写成[0-9]，同理[A-Z]表示26个大写字母。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/a-z/.test(&apos;b&apos;) // false</span><br><span class="line">/[a-z]/.test(&apos;b&apos;) // true</span><br></pre></td></tr></table></figure></p>
+<h2 id="预定义模式"><a href="#预定义模式" class="headerlink" title="预定义模式"></a>预定义模式</h2><p>\d 匹配0-9之间的任一数字，相当于[0-9]。<br>\D 匹配所有0-9以外的字符，相当于[^0-9]。<br>\w 匹配任意的字母、数字和下划线，相当于[A-Za-z0-9_]。<br>\W 除所有字母、数字和下划线以外的字符，相当于[^A-Za-z0-9_]。<br>\s 匹配空格（包括换行符、制表符、空格符等），相等于[ \t\r\n\v\f]。<br>\S 匹配非空格的字符，相当于[^ \t\r\n\v\f]。<br>\b 匹配词的边界。<br>\B 匹配非词边界，即在词的内部。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// \s 的例子</span><br><span class="line">/\s\w*/.exec(&apos;hello world&apos;) // [&quot; world&quot;]</span><br><span class="line"></span><br><span class="line">// \b 的例子</span><br><span class="line">/\bworld/.test(&apos;hello world&apos;) // true</span><br><span class="line">/\bworld/.test(&apos;hello-world&apos;) // true</span><br><span class="line">/\bworld/.test(&apos;helloworld&apos;) // false</span><br><span class="line"></span><br><span class="line">// \B 的例子</span><br><span class="line">/\Bworld/.test(&apos;hello-world&apos;) // false</span><br><span class="line">/\Bworld/.test(&apos;helloworld&apos;) // true</span><br></pre></td></tr></table></figure>
+<h2 id="重复类"><a href="#重复类" class="headerlink" title="重复类 {}"></a>重复类 {}</h2><p>模式的精确匹配次数，使用大括号（{}）表示。{n}表示恰好重复n次，{n,}表示至少重复n次，{n,m}表示重复不少于n次，不多于m次。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line"></span><br><span class="line">### 量词符</span><br><span class="line">? 问号表示某个模式出现0次或1次，等同于&#123;0, 1&#125;。</span><br><span class="line">* 星号表示某个模式出现0次或多次，等同于&#123;0,&#125;。</span><br><span class="line">+ 加号表示某个模式出现1次或多次，等同于&#123;1,&#125;。</span><br></pre></td></tr></table></figure></p>
+<p>// t 出现0次或1次<br>/t?est/.test(‘test’) // true<br>/t?est/.test(‘est’) // true</p>
+<p>// t 出现1次或多次<br>/t+est/.test(‘test’) // true<br>/t+est/.test(‘ttest’) // true<br>/t+est/.test(‘est’) // false</p>
+<p>// t 出现0次或多次<br>/t<em>est/.test(‘test’) // true<br>/t</em>est/.test(‘ttest’) // true<br>/t<em>est/.test(‘tttest’) // true<br>/t</em>est/.test(‘est’) // true<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 贪婪模式</span><br><span class="line">上一小节的三个量词符，默认情况下都是最大可能匹配，即匹配直到下一个字符不满足匹配规则为止。这被称为贪婪模式。</span><br></pre></td></tr></table></figure></p>
+<p>var s = ‘aaa’;<br>s.match(/a+/) // [“aaa”]<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">上面代码中，模式是/a+/，表示匹配1个a或多个a，那么到底会匹配几个a呢？因为默认是贪婪模式，会一直匹配到字符a不出现为止，所以匹配结果是3个a。</span><br><span class="line"></span><br><span class="line">如果想将贪婪模式改为非贪婪模式，可以在量词符后面加一个问号。</span><br></pre></td></tr></table></figure></p>
+<p>var s = ‘aaa’;<br>s.match(/a+?/) // [“a”]<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; *?：表示某个模式出现0次或多次，匹配时采用非贪婪模式。</span><br><span class="line">&gt; +?：表示某个模式出现1次或多次，匹配时采用非贪婪模式。</span><br><span class="line"></span><br><span class="line">## 修饰符</span><br><span class="line">### g修饰符</span><br></pre></td></tr></table></figure></p>
+<p>var regex = /b/;<br>var str = ‘abba’;</p>
+<p>regex.test(str); // true<br>regex.test(str); // true<br>regex.test(str); // true<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">上面代码中，正则模式不含g修饰符，每次都是从字符串头部开始匹配。所以，连续做了三次匹配，都返回true。</span><br></pre></td></tr></table></figure></p>
+<p>var regex = /b/g;<br>var str = ‘abba’;</p>
+<p>regex.test(str); // true<br>regex.test(str); // true<br>regex.test(str); // false<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">上面代码中，正则模式含有g修饰符，每次都是从上一次匹配成功处，开始向后匹配。因为字符串abba只有两个b，所以前两次匹配结果为true，第三次匹配结果为false。</span><br><span class="line"></span><br><span class="line">### i 修饰符</span><br><span class="line">默认情况下，正则对象区分字母的大小写，加上i修饰符以后表示忽略大小写（ignorecase）。</span><br></pre></td></tr></table></figure></p>
+<p>/abc/.test(‘ABC’) // false<br>/abc/i.test(‘ABC’) // true<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### m 修饰符</span><br><span class="line">m修饰符表示多行模式（multiline），会修改^和$的行为。默认情况下（即不加m修饰符时），^和$匹配字符串的开始处和结尾处，加上m修饰符以后，^和$还会匹配行首和行尾，即^和$会识别换行符（\n）。</span><br></pre></td></tr></table></figure></p>
+<p>/world$/.test(‘hello world\n’) // false<br>/world$/m.test(‘hello world\n’) // true<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 组匹配 ()</span><br><span class="line">括号有两个功能，分别是分组和引用</span><br><span class="line">### 分组</span><br><span class="line">量词控制之前元素的出现次数，而这个元素可能是一个字符，也可能是一个字符组，也可以是一个表达式</span><br><span class="line"></span><br><span class="line">如果把一个表达式用括号包围起来，这个元素就是括号里的表达式，被称为子表达式</span><br><span class="line"></span><br><span class="line">如果希望字符串&apos;ab&apos;重复出现2次，应该写为(ab)&#123;2&#125;，而如果写为ab&#123;2&#125;，则&#123;2&#125;只限定b</span><br></pre></td></tr></table></figure></p>
+<p>console.log(/(ab){2}/.test(‘abab’)); //true<br>console.log(/(ab){2}/.test(‘abb’)); //false<br>console.log(/ab{2}/.test(‘abab’)); //false<br>console.log(/ab{2}/.test(‘abb’)); //true<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 捕获</span><br><span class="line">括号不仅可以对元素进行分组，还会保存每个分组匹配的文本，等到匹配完成后，引用捕获的内容。因为捕获了文本，这种功能叫捕获分组</span><br><span class="line">比如，要匹配诸如2016-06-23这样的日期字符串</span><br></pre></td></tr></table></figure></p>
+<p>/(\d{4})-(\d{2})-(\d{2})/</p>
+<p>console.log(/(\d{4})-(\d{2})-(\d{2})/.test(‘2016-06-23’));//true<br>console.log(RegExp.$1);//‘2016’<br>console.log(RegExp.$2);//‘06’<br>console.log(RegExp.$3);//‘23’<br>console.log(RegExp.$4);//‘’<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 反向引用</span><br><span class="line">反向引用允许在正则表达式内部引用之前捕获分组匹配的文本，形式是\num，num表示所引用分组的编号</span><br></pre></td></tr></table></figure></p>
+<p>//重复字母<br>/([a-z])\1/<br>console.log(/([a-z])\1/.test(‘aa’));//true<br>console.log(/([a-z])\1/.test(‘ab’));//false<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 非捕获</span><br><span class="line">除了捕获分组，正则表达式还提供了非捕获分组(non-capturing group)，以(?:)的形式表示，它只用于限定作用范围，而不捕获任何文本</span><br><span class="line">比如，要匹配abcabc这个字符，一般地，可以写为(abc)&#123;2&#125;，但由于并不需要捕获文本，只是限定了量词的作用范围，所以应该写为(?:abc)&#123;2&#125;</span><br></pre></td></tr></table></figure></p>
+<p>console.log(/(abc){2}/.test(‘abcabc’));//true<br>console.log(/(?:abc){2}/.test(‘abcabc’));//true<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">由于非捕获分组不捕获文本，对应地，也就没有捕获组编号</span><br></pre></td></tr></table></figure></p>
+<p>console.log(/(abc){2}/.test(‘abcabc’));//true<br>console.log(RegExp.$1);//‘abc’<br>console.log(/(?:abc){2}/.test(‘abcabc’));//true<br>console.log(RegExp.$1);//‘’<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">非捕获分组也不可以使用反向引用</span><br></pre></td></tr></table></figure></p>
+<p>/(?:123)\1/.test(‘123123’);//false<br>/(123)\1/.test(‘123123’);//true<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">捕获分组和非捕获分组可以在一个正则表达式中同时出现</span><br></pre></td></tr></table></figure></p>
+<p>console.log(/(\d)(\d)(?:\d)(\d)(\d)/.exec(‘12345’));//[“12345”, “1”, “2”, “4”, “5”]<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">### 先行断言</span><br><span class="line">x(?=y)称为先行断言（Positive look-ahead），x只有在y前面才匹配，y不会被计入返回结果。比如，要匹配后面跟着百分号的数字，可以写成/\d+(?=%)/。“先行断言”中，括号里的部分是不会返回的。</span><br></pre></td></tr></table></figure></p>
+<p>var m = ‘abc’.match(/b(?=c)/);<br>m // [“b”]<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 先行否定断言</span><br><span class="line">x(?!y)称为先行否定断言（Negative look-ahead），x只有不在y前面才匹配，y不会被计入返回结果。比如，要匹配后面跟的不是百分号的数字，就要写成/\d+(?!%)/。</span><br></pre></td></tr></table></figure></p>
+<p>/\d+(?!.)/.exec(‘3.14’)<br>// [“14”]<br><code>`</code></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 前端 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> javascript </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[整理一下hobber]]></title>
+      <url>https://skhon.github.io/2020/03/04/hobber/</url>
+      <content type="html"><![CDATA[<h2 id="安装-hobber"><a href="#安装-hobber" class="headerlink" title="安装 hobber"></a>安装 hobber</h2><ol>
+<li>全局安装 hobber-cli</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install @ke/hobber-cli -g --registry=http://registry.npmjs.lianjia.com:7001</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<blockquote>
+<p>note: hobber-cli 官网：<a href="http://registry.npmjs.lianjia.com/package/@ke/hobber-cli" target="_blank" rel="noopener">http://registry.npmjs.lianjia.com/package/@ke/hobber-cli</a></p>
+</blockquote>
+<ol start="2">
+<li>利用 hobber-cli 创建一个 hobber 项目</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hobber new hobber-test</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>安装依赖</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd hobber-test</span><br><span class="line">$ npm i --registry=http://registry.npmjs.lianjia.com:7001</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>本地启动</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm run dev</span><br></pre></td></tr></table></figure>
+<h2 id="调试-hobber"><a href="#调试-hobber" class="headerlink" title="调试 hobber"></a>调试 hobber</h2><p>目前这里有两种调试方法：</p>
+<ol>
+<li><p>可以通过自己打日志 console</p>
+</li>
+<li><p>可以配置 vscode，来进行调试</p>
+</li>
+</ol>
+<p>launch.json 配置如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  // 使用 IntelliSense 了解相关属性。</span><br><span class="line">  // 悬停以查看现有属性的描述。</span><br><span class="line">  // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387</span><br><span class="line">  &quot;version&quot;: &quot;0.2.0&quot;,</span><br><span class="line">  &quot;configurations&quot;: [</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;type&quot;: &quot;node&quot;,</span><br><span class="line">      &quot;request&quot;: &quot;launch&quot;,</span><br><span class="line">      &quot;name&quot;: &quot;debug&quot;,</span><br><span class="line">      &quot;program&quot;: &quot;$&#123;workspaceFolder&#125;/src/index.ts&quot;,</span><br><span class="line">      &quot;outFiles&quot;: [&quot;$&#123;workspaceFolder&#125;/**/*.js&quot;],</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="hobber-使用"><a href="#hobber-使用" class="headerlink" title="hobber 使用"></a>hobber 使用</h2><h3 id="action"><a href="#action" class="headerlink" title="action"></a>action</h3><ul>
+<li>创建一个 action</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hobber action /project/list</span><br></pre></td></tr></table></figure>
+<ul>
+<li>配置是否需要登录</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">export default &#123;</span><br><span class="line"></span><br><span class="line">  // 是否页面需要登陆 默认需要登陆</span><br><span class="line">  // 具体逻辑在 configs/action 的 beforeHandler 中体现</span><br><span class="line">  needLogin: false,</span><br><span class="line"></span><br><span class="line">  async handler(ctx: Context) &#123;</span><br><span class="line"></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">&#125; as ActionConfig</span><br></pre></td></tr></table></figure>
+]]></content>
+      
+        <categories>
+            
+            <category> 前端 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> node </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[JavaScript Errors and Stack Traces]]></title>
       <url>https://skhon.github.io/2020/02/26/js-stack-trace/</url>
       <content type="html"><![CDATA[<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>今天将讨论错误和堆栈跟踪以及如何处理它们。</p>
