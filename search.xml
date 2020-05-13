@@ -10,6 +10,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var map = new Map()</span><br><span class="line">map.set(1,1)</span><br><span class="line">var result = map.get(1)--</span><br></pre></td></tr></table></figure>
 <p>会报这样的错：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Uncaught ReferenceError: Invalid left-hand side expression in postfix operation</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
 <p>【原因】数字不能–，得用变量</p>
 ]]></content>
       
