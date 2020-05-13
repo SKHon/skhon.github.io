@@ -23,4 +23,6 @@ var result = map.get(1)--
 Uncaught ReferenceError: Invalid left-hand side expression in postfix operation
 ```
 
+<!--more-->
+
 【原因】数字不能--，得用变量
