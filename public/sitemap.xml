@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://skhon.github.io/2020/05/14/package-lock/</loc>
+    
+    <lastmod>2020-05-14T08:20:32.855Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://skhon.github.io/2020/05/13/js-error/</loc>
     
     <lastmod>2020-05-13T01:53:25.947Z</lastmod>
@@ -9,14 +16,14 @@
   </url>
   
   <url>
-    <loc>https://skhon.github.io/2020/03/04/hobber/</loc>
+    <loc>https://skhon.github.io/2020/04/16/JSON/</loc>
     
     <lastmod>2020-04-16T08:54:00.466Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://skhon.github.io/2020/04/16/JSON/</loc>
+    <loc>https://skhon.github.io/2020/03/04/hobber/</loc>
     
     <lastmod>2020-04-16T08:54:00.466Z</lastmod>
     
@@ -51,14 +58,14 @@
   </url>
   
   <url>
-    <loc>https://skhon.github.io/2020/01/09/node-debug/</loc>
+    <loc>https://skhon.github.io/2020/01/15/node/</loc>
     
     <lastmod>2020-02-25T12:09:15.668Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://skhon.github.io/2020/01/15/node/</loc>
+    <loc>https://skhon.github.io/2020/01/09/node-debug/</loc>
     
     <lastmod>2020-02-25T12:09:15.668Z</lastmod>
     
@@ -100,14 +107,7 @@
   </url>
   
   <url>
-    <loc>https://skhon.github.io/categories/index.html</loc>
-    
-    <lastmod>2019-10-07T23:57:28.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://skhon.github.io/example/index.html</loc>
+    <loc>https://skhon.github.io/404.html</loc>
     
     <lastmod>2019-10-07T23:57:28.000Z</lastmod>
     
@@ -115,6 +115,13 @@
   
   <url>
     <loc>https://skhon.github.io/guestbook/index.html</loc>
+    
+    <lastmod>2019-10-07T23:57:28.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://skhon.github.io/categories/index.html</loc>
     
     <lastmod>2019-10-07T23:57:28.000Z</lastmod>
     
@@ -135,7 +142,7 @@
   </url>
   
   <url>
-    <loc>https://skhon.github.io/404.html</loc>
+    <loc>https://skhon.github.io/example/index.html</loc>
     
     <lastmod>2019-10-07T23:57:28.000Z</lastmod>
     
