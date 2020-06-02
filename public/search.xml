@@ -4,6 +4,34 @@
   
     
     <entry>
+      <title><![CDATA[探索一下node的性能瓶颈]]></title>
+      <url>https://skhon.github.io/2020/06/02/koa/</url>
+      <content type="html"><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>这两天自己压测 hobber 框架，想看看 qps 能打到多少。和测试借了一台 cpu 8 核， 内存 32GB 的机器，node 版本 12.8。另外 4 台发压机。压测工具用的 jmeter。<a id="more"></a></p>
+<h2 id="裸压-hello-world"><a href="#裸压-hello-world" class="headerlink" title="裸压 hello world"></a>裸压 hello world</h2><p>先裸压 hello world，并发 400，压了 120s。最后结论是 qps 打到 3000 多就上不去了，但是机器 cpu 使用率一直在 25%左右。<br><img src="/images/node_pro/hobber01.png" alt></p>
+<p><img src="/images/node_pro/hobber02.png" alt></p>
+<p>后续并发增加到 800，发现 qps 上不去了，cpu 的使用率也上不去了。那么到这里，就有个疑问，qps 为什么压不上去了？cpu 还没打满呀，应该还有空间的呀。到这里，就卡壳了，不知道怎么回事了。</p>
+<p>我想了想，因为 hobber 是基于 koa 开发的，那我就想着用直接写一个简单的应用，koa + koa-router + log4js 来大概模拟一个简单的服务，看能不能把 cpu 给压上去。</p>
+<h2 id="压-koa"><a href="#压-koa" class="headerlink" title="压 koa"></a>压 koa</h2><p>还是上述的配置，来压 koa，单核，800 并发，压了 120s，qps 大概能飙到 6000 多，cpu 在 35%左右。看起来是相比 hobber，qps 和 cpu 都压上去一点了，但是还是上述的问题，增加并发，cpu 和 qps 都上不去了，感觉就像到了瓶颈一样。那么这个时候，可以有多种可能，可能是 linux 系统就是这么调度的，单核情况下，你的 cpu 不会给你分配很高的。也可能是 node 的性能瓶颈，并发达到一定程度后，libuv 管理的线程池操作不了这么大的量，就挂起等待了，就是说 node 性能本身就有瓶颈。到这里，问题好想有点难搞了，但是我觉得，要是 node 本身有瓶颈，那应该早有人爆出来了呀。。我反正觉得，应该不是 node 的问题。这个时候，我又想起了一个框架就是 egg，把 egg 也压一下，和 hobber 做个对比。</p>
+<h2 id="压-egg"><a href="#压-egg" class="headerlink" title="压 egg"></a>压 egg</h2><p>配置没变，还是 8 核，32g 内存的配置，先单核裸压 egg，压的结果和 hobber 基本一致，qps3000 多，cpu 在 25%左右，增加并发也上不去了。然后！！我把 egg 多核打开，我的机器 8 核，跑 8 个进程，800 并发开始压，发现 qps 能飙到 1w 左右，cpu 能打到 90%左右。这个时候，有没有这样一个疑问，node 的负载瓶颈难道就是 1w 的 qps 吗？</p>
+<h2 id="整理一下"><a href="#整理一下" class="headerlink" title="整理一下"></a>整理一下</h2><p>我网上搜了一下 node 负载相关文章，看到这篇：<a href="https://www.cnblogs.com/cqq626/p/7775196.html" target="_blank" rel="noopener">点这里</a> ，我看作者也是压了 koa，他的机器是 48 核，他最后把 48 核都开启了，node 的最后 qps 也最多打到 1w 左右，那么他看到的现象和我的基本一致，那么我自信一点：node 的负载瓶颈就是 1w 的 qps，那是 node 的具体瓶颈在哪一块呢？</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 前端 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> node </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[项目代码没动过，之前好使，现在报错了？]]></title>
       <url>https://skhon.github.io/2020/05/14/package-lock/</url>
       <content type="html"><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>昨天晚上，有个业务方过来问，之前hobber项目跑的好好的，下午部署怎么报错了？看git提交记录，也没动过代码呀。<br>然后我就帮他查，最后定位到require一个依赖库的时候，报错了。那为什么代码没动过，之前部署没问题，现在就不行了呢？<br><a id="more"></a></p>
