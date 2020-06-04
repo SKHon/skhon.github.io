@@ -1,6 +1,6 @@
 ---
 title: 谈谈hook
-date: 2020-01-03 03:25:24
+date: 2019-11-03 03:25:24
 categories: 前端
 tags: [JavaScript]
 comments: true
@@ -14,11 +14,11 @@ copyright: true
 
 ```js
 if (code === 200) {
-    console.log("Ok");
+  console.log('Ok');
 } else if (code === 500) {
-    console.log("Internal server error");
+  console.log('Internal server error');
 } else if (code === 404) {
-    console.log("Not found");
+  console.log('Not found');
 }
 ```
 
@@ -26,18 +26,18 @@ if (code === 200) {
 
 ```js
 const codeList = {
-    200: function() {
-        console.log("Ok");
-    },
-    404: function() {
-        console.log("Not founnd");
-    },
-    500: function() {
-        console.log("Internal server error");
-    }
+  200: function() {
+    console.log('Ok');
+  },
+  404: function() {
+    console.log('Not founnd');
+  },
+  500: function() {
+    console.log('Internal server error');
+  }
 };
 function print(input) {
-    codeList[input]();
+  codeList[input]();
 }
 print(200);
 ```
@@ -53,10 +53,10 @@ start->end 是一个完整的流程，我们需要在这个流程里面插入我
 ```js
 var _alert = alert;
 window.alert = function(s) {
-    console.log("Hooked!");
-    _alert(s);
+  console.log('Hooked!');
+  _alert(s);
 };
-alert("hello world");
+alert('hello world');
 ```
 
 这个过程可以理解为：先保存原来的 alert，然后重写 alert，这样在执行 alert 的时候，就是执行的重写之后的。那么重写的过程我们可以不暴露出来，那么对于用 alert 的用户来说，好像和以前的执行结果不太一样了。这就是`alert 函数被劫持了`。
