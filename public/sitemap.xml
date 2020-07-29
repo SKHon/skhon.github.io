@@ -2,16 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://skhon.github.io/2020/06/09/http-request/</loc>
+    
+    <lastmod>2020-06-09T09:42:57.963Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://skhon.github.io/2019/11/03/hook-js/</loc>
     
-    <lastmod>2020-06-04T03:50:16.231Z</lastmod>
+    <lastmod>2020-06-04T04:13:21.366Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://skhon.github.io/2020/06/02/koa/</loc>
     
-    <lastmod>2020-06-04T03:49:13.047Z</lastmod>
+    <lastmod>2020-06-04T04:13:21.366Z</lastmod>
     
   </url>
   
@@ -30,6 +37,13 @@
   </url>
   
   <url>
+    <loc>https://skhon.github.io/2020/03/21/regexp/</loc>
+    
+    <lastmod>2020-04-16T08:54:00.466Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://skhon.github.io/2020/03/04/hobber/</loc>
     
     <lastmod>2020-04-16T08:54:00.466Z</lastmod>
@@ -38,13 +52,6 @@
   
   <url>
     <loc>https://skhon.github.io/2020/04/16/JSON/</loc>
-    
-    <lastmod>2020-04-16T08:54:00.466Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://skhon.github.io/2020/03/21/regexp/</loc>
     
     <lastmod>2020-04-16T08:54:00.466Z</lastmod>
     
@@ -114,13 +121,6 @@
   </url>
   
   <url>
-    <loc>https://skhon.github.io/categories/index.html</loc>
-    
-    <lastmod>2019-10-07T23:57:28.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://skhon.github.io/404.html</loc>
     
     <lastmod>2019-10-07T23:57:28.000Z</lastmod>
@@ -128,7 +128,14 @@
   </url>
   
   <url>
-    <loc>https://skhon.github.io/example/index.html</loc>
+    <loc>https://skhon.github.io/categories/index.html</loc>
+    
+    <lastmod>2019-10-07T23:57:28.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://skhon.github.io/guestbook/index.html</loc>
     
     <lastmod>2019-10-07T23:57:28.000Z</lastmod>
     
@@ -142,14 +149,14 @@
   </url>
   
   <url>
-    <loc>https://skhon.github.io/weblog/index.html</loc>
+    <loc>https://skhon.github.io/example/index.html</loc>
     
     <lastmod>2019-10-07T23:57:28.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://skhon.github.io/guestbook/index.html</loc>
+    <loc>https://skhon.github.io/weblog/index.html</loc>
     
     <lastmod>2019-10-07T23:57:28.000Z</lastmod>
     
