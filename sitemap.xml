@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://skhon.github.io/2020/07/28/react-source-while/</loc>
+    
+    <lastmod>2020-08-05T00:48:36.533Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://skhon.github.io/2020/07/28/react-window-api/</loc>
     
     <lastmod>2020-07-29T02:29:33.321Z</lastmod>
@@ -44,13 +51,6 @@
   </url>
   
   <url>
-    <loc>https://skhon.github.io/2020/03/21/regexp/</loc>
-    
-    <lastmod>2020-04-16T08:54:00.466Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://skhon.github.io/2020/04/16/JSON/</loc>
     
     <lastmod>2020-04-16T08:54:00.466Z</lastmod>
@@ -59,6 +59,13 @@
   
   <url>
     <loc>https://skhon.github.io/2020/03/04/hobber/</loc>
+    
+    <lastmod>2020-04-16T08:54:00.466Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://skhon.github.io/2020/03/21/regexp/</loc>
     
     <lastmod>2020-04-16T08:54:00.466Z</lastmod>
     
@@ -135,14 +142,14 @@
   </url>
   
   <url>
-    <loc>https://skhon.github.io/categories/index.html</loc>
+    <loc>https://skhon.github.io/example/index.html</loc>
     
     <lastmod>2019-10-07T23:57:28.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://skhon.github.io/example/index.html</loc>
+    <loc>https://skhon.github.io/categories/index.html</loc>
     
     <lastmod>2019-10-07T23:57:28.000Z</lastmod>
     
