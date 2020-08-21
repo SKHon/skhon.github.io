@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://skhon.github.io/2020/08/16/websocket/</loc>
+    <loc>https://skhon.github.io/2020/08/20/websocket/</loc>
     <lastmod>2020-08-21</lastmod>
   </url>  <url>
     <loc>https://skhon.github.io/2020/08/16/sameSite/</loc>
@@ -28,10 +28,10 @@
     <loc>https://skhon.github.io/2020/05/14/package-lock/</loc>
     <lastmod>2020-05-14</lastmod>
   </url>  <url>
-    <loc>https://skhon.github.io/2020/03/21/regexp/</loc>
+    <loc>https://skhon.github.io/2020/04/16/JSON/</loc>
     <lastmod>2020-04-16</lastmod>
   </url>  <url>
-    <loc>https://skhon.github.io/2020/04/16/JSON/</loc>
+    <loc>https://skhon.github.io/2020/03/21/regexp/</loc>
     <lastmod>2020-04-16</lastmod>
   </url>  <url>
     <loc>https://skhon.github.io/2020/02/26/js-stack-trace/</loc>

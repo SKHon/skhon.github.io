@@ -2,9 +2,9 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://skhon.github.io/2020/08/16/websocket/</loc>
+    <loc>https://skhon.github.io/2020/08/20/websocket/</loc>
     
-    <lastmod>2020-08-21T04:10:18.969Z</lastmod>
+    <lastmod>2020-08-21T04:11:39.518Z</lastmod>
     
   </url>
   
@@ -37,14 +37,14 @@
   </url>
   
   <url>
-    <loc>https://skhon.github.io/2020/06/02/koa/</loc>
+    <loc>https://skhon.github.io/2019/11/03/hook-js/</loc>
     
     <lastmod>2020-06-04T04:13:21.366Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://skhon.github.io/2019/11/03/hook-js/</loc>
+    <loc>https://skhon.github.io/2020/06/02/koa/</loc>
     
     <lastmod>2020-06-04T04:13:21.366Z</lastmod>
     
@@ -65,14 +65,14 @@
   </url>
   
   <url>
-    <loc>https://skhon.github.io/2020/03/21/regexp/</loc>
+    <loc>https://skhon.github.io/2020/04/16/JSON/</loc>
     
     <lastmod>2020-04-16T08:54:00.466Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://skhon.github.io/2020/04/16/JSON/</loc>
+    <loc>https://skhon.github.io/2020/03/21/regexp/</loc>
     
     <lastmod>2020-04-16T08:54:00.466Z</lastmod>
     
@@ -149,13 +149,6 @@
   </url>
   
   <url>
-    <loc>https://skhon.github.io/categories/index.html</loc>
-    
-    <lastmod>2019-10-07T23:57:28.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://skhon.github.io/example/index.html</loc>
     
     <lastmod>2019-10-07T23:57:28.000Z</lastmod>
@@ -170,6 +163,13 @@
   </url>
   
   <url>
+    <loc>https://skhon.github.io/reward/index.html</loc>
+    
+    <lastmod>2019-10-07T23:57:28.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://skhon.github.io/weblog/index.html</loc>
     
     <lastmod>2019-10-07T23:57:28.000Z</lastmod>
@@ -177,7 +177,7 @@
   </url>
   
   <url>
-    <loc>https://skhon.github.io/reward/index.html</loc>
+    <loc>https://skhon.github.io/categories/index.html</loc>
     
     <lastmod>2019-10-07T23:57:28.000Z</lastmod>
     
