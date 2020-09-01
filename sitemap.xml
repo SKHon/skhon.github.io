@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://skhon.github.io/2020/09/01/url-process/</loc>
+    
+    <lastmod>2020-09-01T02:03:49.616Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://skhon.github.io/2020/08/16/sameSite/</loc>
+    
+    <lastmod>2020-09-01T01:38:13.689Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://skhon.github.io/2020/08/27/502/</loc>
     
     <lastmod>2020-08-27T07:57:16.354Z</lastmod>
@@ -100,13 +114,6 @@
   </url>
   
   <url>
-    <loc>https://skhon.github.io/2020/08/16/sameSite/</loc>
-    
-    <lastmod>2020-08-17T09:47:58.532Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://skhon.github.io/2019/11/03/hook-js/</loc>
     
     <lastmod>2020-06-04T04:13:21.366Z</lastmod>
@@ -135,14 +142,14 @@
   </url>
   
   <url>
-    <loc>https://skhon.github.io/offline.html</loc>
+    <loc>https://skhon.github.io/404.html</loc>
     
     <lastmod>2019-10-07T23:57:28.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://skhon.github.io/example/index.html</loc>
+    <loc>https://skhon.github.io/offline.html</loc>
     
     <lastmod>2019-10-07T23:57:28.000Z</lastmod>
     
@@ -163,6 +170,13 @@
   </url>
   
   <url>
+    <loc>https://skhon.github.io/example/index.html</loc>
+    
+    <lastmod>2019-10-07T23:57:28.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://skhon.github.io/reward/index.html</loc>
     
     <lastmod>2019-10-07T23:57:28.000Z</lastmod>
@@ -171,13 +185,6 @@
   
   <url>
     <loc>https://skhon.github.io/weblog/index.html</loc>
-    
-    <lastmod>2019-10-07T23:57:28.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://skhon.github.io/404.html</loc>
     
     <lastmod>2019-10-07T23:57:28.000Z</lastmod>
     

@@ -4,6 +4,66 @@
   
     
     <entry>
+      <title><![CDATA[url从输入到页面展示，发生了什么？]]></title>
+      <url>https://skhon.github.io/2020/09/01/url-process/</url>
+      <content type="html"><![CDATA[<h2 id="经典问题啊"><a href="#经典问题啊" class="headerlink" title="经典问题啊"></a>经典问题啊</h2><p>这是很多面试官问到一个题目，这是一个很经典到问题，因为这个问题展开说到话，会涉及到网络模型，传输层中重要的一个协议tcp，tcp的建立连接的三次握手，断开连接的四次挥手，应用层前端比较重要的http以及https，如果岗位便高一点，还可以问浏览器的架构。<a id="more"></a>记得当年我面试的时候，也被问过这个问题。同样的问题，面试官的水平不一样，问的深度和广度也不一样，有的面试官可能他们对浏览器也不是特别清楚（比如当年面试我的那位），这样他可能就听你说的怎么样，对错，可能他也不清楚。这个问题，一定要搞过浏览器，或者对浏览器做过功课的人，才能够对该问题有很好的理解。</p>
+<h2 id="让我来总结一下"><a href="#让我来总结一下" class="headerlink" title="让我来总结一下"></a>让我来总结一下</h2><ol>
+<li><p>用户输入url：浏览器会根据用户输入的信息判断是搜索还是网址，如果是搜索内容，就将搜索内容+默认搜索引擎合成新的URL；如果用户输入的内容符合URL规则，浏览器就会根据URL协议，在这段内容上加上协议合成合法的URL</p>
+</li>
+<li><p>用户输入完内容，按下回车键，浏览器导航栏显示loading状态，但是页面还是呈现前一个页面，这是因为新页面的响应数据还没有获得</p>
+</li>
+<li><p>浏览器进程浏览器构建请求行信息，会通过进程间通信（IPC）将URL请求发送给网络进程。 GET /index.html HTTP1.1</p>
+</li>
+<li><p>网络进程获取到URL，先去本地缓存中查找是否有缓存文件，如果有，拦截请求，直接200返回；否则，进入网络请求过程</p>
+</li>
+<li><p>网络进程请求DNS返回域名对应的IP和端口号，如果之前DNS数据缓存服务缓存过当前域名信息，就会直接返回缓存信息；否则，发起请求获取根据域名解析出来的IP和端口号，如果没有端口号，http默认80，https默认443。如果是https请求，还需要建立TLS连接。</p>
+</li>
+<li><p>Chrome 有个机制，同一个域名同时最多只能建立 6 个TCP 连接，如果在同一个域名下同时有 10 个请求发生，那么其中 4 个请求会进入排队等待状态，直至进行中的请求完成。如果当前请求数量少于6个，会直接建立TCP连接。</p>
+</li>
+<li><p>TCP三次握手建立连接，http请求加上TCP头部——包括源端口号、目的程序端口号和用于校验数据完整性的序号，向下传输</p>
+</li>
+<li><p>网络层在数据包上加上IP头部——包括源IP地址和目的IP地址，继续向下传输到底层</p>
+</li>
+<li><p>底层通过物理网络传输给目的服务器主机</p>
+</li>
+<li><p>目的服务器主机网络层接收到数据包，解析出IP头部，识别出数据部分，将解开的数据包向上传输到传输层</p>
+</li>
+<li><p>目的服务器主机传输层获取到数据包，解析出TCP头部，识别端口，将解开的数据包向上传输到应用层</p>
+</li>
+<li><p>应用层HTTP解析请求头和请求体，如果需要重定向，HTTP直接返回HTTP响应数据的状态code301或者302，同时在请求头的Location字段中附上重定向地址，浏览器会根据code和Location进行重定向操作；如果不是重定向，首先服务器会根据 请求头中的If-None-Match 的值来判断请求的资源是否被更新，如果没有更新，就返回304状态码，相当于告诉浏览器之前的缓存还可以使用，就不返回新数据了；否则，返回新数据，200的状态码，并且如果想要浏览器缓存数据的话，就在相应头中加入字段：Cache-Control:Max-age=2000。响应数据又顺着应用层——传输层——网络层——网络层——传输层——应用层的顺序返回到网络进程</p>
+</li>
+<li><p>数据传输完成，TCP四次挥手断开连接。如果，浏览器或者服务器在HTTP头部加上如下信息，TCP就一直保持连接。保持TCP连接可以省下下次需要建立连接的时间，提示资源加载速度<br>Connection:Keep-Alive</p>
+</li>
+<li><p>网络进程将获取到的数据包进行解析，根据响应头中的Content-type来判断响应数据的类型，如果是字节流类型，就将该请求交给下载管理器，该导航流程结束，不再进行；如果是text/html类型，就通知浏览器进程获取到文档准备渲染</p>
+</li>
+<li><p>浏览器进程获取到通知，根据当前页面B是否是从页面A打开的并且和页面A是否是同一个站点（根域名和协议一样就被认为是同一个站点），如果满足上述条件，就复用之前网页的进程，否则，新创建一个单独的渲染进程</p>
+</li>
+<li><p>浏览器会发出“提交文档”的消息给渲染进程，渲染进程收到消息后，会和网络进程建立传输数据的“管道”，文档数据传输完成后，渲染进程会返回“确认提交”的消息给浏览器进程</p>
+</li>
+<li><p>浏览器收到“确认提交”的消息后，会更新浏览器的页面状态，包括了安全状态、地址栏的 URL、前进后退的历史状态，并更新web页面，此时的web页面是空白页</p>
+</li>
+<li><p>渲染进程对文档进行页面解析和子资源加载，HTML 通过HTM 解析器转成DOM Tree（二叉树类似结构的东西），CSS按照CSS 规则和CSS解释器转成CSSOM TREE，两个tree结合，形成render tree（不包含HTML的具体元素和元素要画的具体位置），通过Layout可以计算出每个元素具体的宽高颜色位置，结合起来，开始绘制，最后显示在屏幕中新页面显示出来</p>
+</li>
+</ol>
+<p>你如果这么答，我觉得面试官肯定觉得你相关浏览器以及网络知识掌握了。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 前端 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 浏览器 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[关于一次502排查经历]]></title>
       <url>https://skhon.github.io/2020/08/27/502/</url>
       <content type="html"><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>业务方半夜滴我，说他们服务7层监控有一些502，没有头绪，帮我们看看。当时的我心里真的是翻江倒海的，心里一万只……但是业务方用的node框架是我负责的，那就帮忙看看吧<a id="more"></a></p>
@@ -79,7 +139,32 @@
         
         <tags>
             
-            <tag> javascript </tag>
+            <tag> JavaScript </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[《React源码---还可以这么跳循环》]]></title>
+      <url>https://skhon.github.io/2020/07/28/react-source-while/</url>
+      <content type="html"><![CDATA[<h2 id="React源码中的while使用"><a href="#React源码中的while使用" class="headerlink" title="React源码中的while使用"></a>React源码中的while使用</h2><p>看到commit阶段，有一段代码很奇特，是关于两个while循环的嵌套。代码这样的：<a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">function getHostSibling(fiber: Fiber): ?Instance &#123;</span><br><span class="line">  // We&apos;re going to search forward into the tree until we find a sibling host</span><br><span class="line">  // node. Unfortunately, if multiple insertions are done in a row we have to</span><br><span class="line">  // search past them. This leads to exponential search for the next sibling.</span><br><span class="line">  // TODO: Find a more efficient way to do this.</span><br><span class="line">  let node: Fiber = fiber;</span><br><span class="line">  // 还有这种操作？学到了</span><br><span class="line">  siblings: while (true) &#123;</span><br><span class="line">    // If we didn&apos;t find anything, let&apos;s try the next sibling.</span><br><span class="line">    while (node.sibling === null) &#123;</span><br><span class="line">      if (node.return === null || isHostParent(node.return)) &#123;</span><br><span class="line">        // If we pop out of the root or hit the parent the fiber we are the</span><br><span class="line">        // last sibling.</span><br><span class="line">        return null;</span><br><span class="line">      &#125;</span><br><span class="line">      node = node.return;</span><br><span class="line">    &#125;</span><br><span class="line">    node.sibling.return = node.return;</span><br><span class="line">    node = node.sibling;</span><br><span class="line">    while (</span><br><span class="line">      node.tag !== HostComponent &amp;&amp;</span><br><span class="line">      node.tag !== HostText &amp;&amp;</span><br><span class="line">      node.tag !== DehydratedSuspenseComponent</span><br><span class="line">    ) &#123;</span><br><span class="line">      // If it is not host node and, we might have a host node inside it.</span><br><span class="line">      // Try to search down until we find one.</span><br><span class="line">      if (node.effectTag &amp; Placement) &#123;</span><br><span class="line">        // If we don&apos;t have a child, try the siblings instead.</span><br><span class="line">        continue siblings;</span><br><span class="line">      &#125;</span><br><span class="line">      // If we don&apos;t have a child, try the siblings instead.</span><br><span class="line">      // We also skip portals because they are not part of this host tree.</span><br><span class="line">      if (node.child === null || node.tag === HostPortal) &#123;</span><br><span class="line">        continue siblings;</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        node.child.return = node;</span><br><span class="line">        node = node.child;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    // Check if this host node is stable or about to be placed.</span><br><span class="line">    if (!(node.effectTag &amp; Placement)) &#123;</span><br><span class="line">      // Found it!</span><br><span class="line">      return node.stateNode;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>之前没有这么写过，心里还想，卧槽？flow语法还能这样？然后自己写了个demo，试了一下，卧槽！这样写v8能直接解析，这样的语法是支持的！学到了。<br>然后无知的我，查了一下MDN，果然，人家break 和 continue 后面是可以带参数的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">break [ label ]</span><br><span class="line">label: 标识标号关联的语句</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">continue [ label ]</span><br><span class="line">label: 标识标号关联的语句</span><br></pre></td></tr></table></figure>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/break" target="_blank" rel="noopener">break MDN</a><br><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/continue" target="_blank" rel="noopener">continue MDN</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 前端 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> JavaScript </tag>
             
         </tags>
         
@@ -127,31 +212,6 @@
 <p>requestAnimationFrame 方法的具体说明可以看 MDN 的相关文档，下面通过一个网页动画的示例来了解一下如何使用。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">let offsetTop = 0;</span><br><span class="line">const div = document.querySelector(&quot;.div&quot;);</span><br><span class="line">const run = () =&gt; &#123;</span><br><span class="line"> div.style.transform = `translate3d(0, $&#123;offsetTop += 10&#125;px, 0)`;</span><br><span class="line"> window.requestAnimationFrame(run);</span><br><span class="line">&#125;;</span><br><span class="line">run();</span><br></pre></td></tr></table></figure>
 <p>如果想要实现动画效果，每一次执行回调函数，必须要再次调用 requestAnimationFrame 方法；与 setTimeout 实现动画效果的方式是一样的，只不过不需要设置时间间隔。</p>
-]]></content>
-      
-        <categories>
-            
-            <category> 前端 </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> JavaScript </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[《React源码---还可以这么跳循环》]]></title>
-      <url>https://skhon.github.io/2020/07/28/react-source-while/</url>
-      <content type="html"><![CDATA[<h2 id="React源码中的while使用"><a href="#React源码中的while使用" class="headerlink" title="React源码中的while使用"></a>React源码中的while使用</h2><p>看到commit阶段，有一段代码很奇特，是关于两个while循环的嵌套。代码这样的：<a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">function getHostSibling(fiber: Fiber): ?Instance &#123;</span><br><span class="line">  // We&apos;re going to search forward into the tree until we find a sibling host</span><br><span class="line">  // node. Unfortunately, if multiple insertions are done in a row we have to</span><br><span class="line">  // search past them. This leads to exponential search for the next sibling.</span><br><span class="line">  // TODO: Find a more efficient way to do this.</span><br><span class="line">  let node: Fiber = fiber;</span><br><span class="line">  // 还有这种操作？学到了</span><br><span class="line">  siblings: while (true) &#123;</span><br><span class="line">    // If we didn&apos;t find anything, let&apos;s try the next sibling.</span><br><span class="line">    while (node.sibling === null) &#123;</span><br><span class="line">      if (node.return === null || isHostParent(node.return)) &#123;</span><br><span class="line">        // If we pop out of the root or hit the parent the fiber we are the</span><br><span class="line">        // last sibling.</span><br><span class="line">        return null;</span><br><span class="line">      &#125;</span><br><span class="line">      node = node.return;</span><br><span class="line">    &#125;</span><br><span class="line">    node.sibling.return = node.return;</span><br><span class="line">    node = node.sibling;</span><br><span class="line">    while (</span><br><span class="line">      node.tag !== HostComponent &amp;&amp;</span><br><span class="line">      node.tag !== HostText &amp;&amp;</span><br><span class="line">      node.tag !== DehydratedSuspenseComponent</span><br><span class="line">    ) &#123;</span><br><span class="line">      // If it is not host node and, we might have a host node inside it.</span><br><span class="line">      // Try to search down until we find one.</span><br><span class="line">      if (node.effectTag &amp; Placement) &#123;</span><br><span class="line">        // If we don&apos;t have a child, try the siblings instead.</span><br><span class="line">        continue siblings;</span><br><span class="line">      &#125;</span><br><span class="line">      // If we don&apos;t have a child, try the siblings instead.</span><br><span class="line">      // We also skip portals because they are not part of this host tree.</span><br><span class="line">      if (node.child === null || node.tag === HostPortal) &#123;</span><br><span class="line">        continue siblings;</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        node.child.return = node;</span><br><span class="line">        node = node.child;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    // Check if this host node is stable or about to be placed.</span><br><span class="line">    if (!(node.effectTag &amp; Placement)) &#123;</span><br><span class="line">      // Found it!</span><br><span class="line">      return node.stateNode;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>之前没有这么写过，心里还想，卧槽？flow语法还能这样？然后自己写了个demo，试了一下，卧槽！这样写v8能直接解析，这样的语法是支持的！学到了。<br>然后无知的我，查了一下MDN，果然，人家break 和 continue 后面是可以带参数的</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">break [ label ]</span><br><span class="line">label: 标识标号关联的语句</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">continue [ label ]</span><br><span class="line">label: 标识标号关联的语句</span><br></pre></td></tr></table></figure>
-<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/break" target="_blank" rel="noopener">break MDN</a><br><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/continue" target="_blank" rel="noopener">continue MDN</a></p>
 ]]></content>
       
         <categories>
