@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://skhon.github.io/2020/09/03/cookie/</loc>
+    
+    <lastmod>2020-09-11T08:06:48.034Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://skhon.github.io/2020/09/01/url-process/</loc>
     
     <lastmod>2020-09-01T02:03:49.616Z</lastmod>
@@ -156,14 +163,14 @@
   </url>
   
   <url>
-    <loc>https://skhon.github.io/404.html</loc>
+    <loc>https://skhon.github.io/guestbook/index.html</loc>
     
     <lastmod>2019-10-07T23:57:28.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://skhon.github.io/guestbook/index.html</loc>
+    <loc>https://skhon.github.io/example/index.html</loc>
     
     <lastmod>2019-10-07T23:57:28.000Z</lastmod>
     
@@ -184,7 +191,7 @@
   </url>
   
   <url>
-    <loc>https://skhon.github.io/example/index.html</loc>
+    <loc>https://skhon.github.io/404.html</loc>
     
     <lastmod>2019-10-07T23:57:28.000Z</lastmod>
     
