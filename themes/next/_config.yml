@@ -201,9 +201,6 @@ links_settings:
   # Available values: block | inline
   layout: block
 
-links:
-  贝壳架构组: https://zhuanlan.zhihu.com/c_1099361240064921600
-
 # Table of Contents in the Sidebar
 # Front-matter variable (unsupport wrap expand_all).
 toc:
