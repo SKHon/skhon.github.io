@@ -1,5 +1,5 @@
 ---
 title: 友情链接
-comments: false
+comments: true
 sidebar: none
 ---
