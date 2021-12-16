@@ -91,4 +91,4 @@ rss_feed: RSS Feed
 copyright:
   theme_by: Theme by
   base_on: base on
-  powered_by: Powered by
+  # powered_by: Powered by
