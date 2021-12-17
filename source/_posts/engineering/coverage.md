@@ -3,7 +3,7 @@ title: 代码覆盖率
 categories: 工程化建设
 tags: [Engineering]
 comments: true
-copyright: true
+copyright: false
 ---
 最近为了防止因为漏测导致线上问题，做了一些统计测试覆盖率的工作。这个过程中用到了一个检测代码覆盖率的工具，叫：istanbul。它主要能够从几个维度来分析对应的覆盖率。比如下面几个指标：
 
