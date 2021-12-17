@@ -33,7 +33,7 @@ site:
     # url: ../images/logo.png
   title: SKHon的随笔 # 页面title
   favicon: /favicon.png
-  board: <p>欢迎交流与分享经验22!</p> # 站点公告
+  board: <im>字节内推：<a>https://job.toutiao.com/s/RKVfgX2</a></im> # 站点公告
   copyright: true # 底部版权信息
 
 # config
