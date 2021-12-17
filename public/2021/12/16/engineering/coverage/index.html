@@ -1,1 +1,576 @@
-<!DOCTYPE html><html lang="zh"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,minimal-ui"><meta name="renderer" content="webkit"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="format-detection" content="telephone=no,email=no,adress=no"><meta name="theme-color" content="#000000"><meta http-equiv="window-target" content="_top"><title>代码覆盖率 | SKHon的随笔</title><meta name="description" content="最近为了防止因为漏测导致线上问题，做了一些统计测试覆盖率的工作。这个过程中用到了一个检测代码覆盖率的工具，叫：istanbul。它主要能够从几个维度来分析对应的覆盖率。比如下面几个指标：   行覆盖率（line coverage）：是否每一行都执行了？ 函数覆盖率（function coverage）：是否每个函数都调用了？ 分支覆盖率（branch coverage）：是否每个if代码块都执行了"><meta name="keywords" content="engineering"><meta property="og:type" content="article"><meta property="og:title" content="代码覆盖率"><meta property="og:url" content="https://skhon.github.io/2021/12/16/engineering/coverage/index.html"><meta property="og:site_name" content="前端架构之路"><meta property="og:description" content="最近为了防止因为漏测导致线上问题，做了一些统计测试覆盖率的工作。这个过程中用到了一个检测代码覆盖率的工具，叫：istanbul。它主要能够从几个维度来分析对应的覆盖率。比如下面几个指标：   行覆盖率（line coverage）：是否每一行都执行了？ 函数覆盖率（function coverage）：是否每个函数都调用了？ 分支覆盖率（branch coverage）：是否每个if代码块都执行了"><meta property="og:locale" content="zh-CN"><meta property="og:updated_time" content="2021-12-16T13:06:39.220Z"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="代码覆盖率"><meta name="twitter:description" content="最近为了防止因为漏测导致线上问题，做了一些统计测试覆盖率的工作。这个过程中用到了一个检测代码覆盖率的工具，叫：istanbul。它主要能够从几个维度来分析对应的覆盖率。比如下面几个指标：   行覆盖率（line coverage）：是否每一行都执行了？ 函数覆盖率（function coverage）：是否每个函数都调用了？ 分支覆盖率（branch coverage）：是否每个if代码块都执行了"><link rel="canonical" href="https://skhon.github.io/2021/12/16/engineering/coverage/index.html"><link rel="alternate" href="/atom.xml" title="前端架构之路" type="application/atom+xml"><link rel="icon" href="/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/style.css"></head><body class="main-center" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="slimContent"><div class="navbar-header"><div class="profile-block text-center"><a id="avatar" href="https://github.com/skhon" target="_blank"><img class="img-circle img-rotate" src="/images/my.png" width="200" height="200"></a><h2 id="name" class="hidden-xs hidden-sm">SKHon</h2><h3 id="title" class="hidden-xs hidden-sm hidden-md">Software Engineer</h3><small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> 北京</small></div><div class="search" id="search-form-wrap"><form class="search-form sidebar-form"><div class="input-group"><input type="text" class="search-form-input form-control" placeholder="搜索"> <span class="input-group-btn"><button type="submit" class="search-form-submit btn btn-flat" onclick="return!1"><i class="icon icon-search"></i></button></span></div></form><div class="ins-search"><div class="ins-search-mask"></div><div class="ins-search-container"><div class="ins-input-wrapper"><input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech> <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div><div class="ins-section-wrapper"><div class="ins-section-container"></div></div></div></div></div><button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false"><span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button></div><nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation"><ul class="nav navbar-nav main-nav"><li class="menu-item menu-item-home"><a href="/."><i class="icon icon-home-fill"></i> <span class="menu-title">首页</span></a></li><li class="menu-item menu-item-archives"><a href="/archives"><i class="icon icon-archives-fill"></i> <span class="menu-title">归档</span></a></li><li class="menu-item menu-item-categories"><a href="/categories"><i class="icon icon-folder"></i> <span class="menu-title">分类</span></a></li><li class="menu-item menu-item-tags"><a href="/tags"><i class="icon icon-tags"></i> <span class="menu-title">标签</span></a></li><li class="menu-item menu-item-repository"><a href="/repository"><i class="icon icon-project"></i> <span class="menu-title">项目</span></a></li><li class="menu-item menu-item-books"><a href="/books"><i class="icon icon-book-fill"></i> <span class="menu-title">书单</span></a></li><li class="menu-item menu-item-links"><a href="/links"><i class="icon icon-friendship"></i> <span class="menu-title">友链</span></a></li><li class="menu-item menu-item-about"><a href="/about"><i class="icon icon-cup-fill"></i> <span class="menu-title">关于</span></a></li></ul></nav></div></header><aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar"><div class="slimContent"><div class="widget"><h3 class="widget-title">公告</h3><div class="widget-body"><div id="board"><div class="content"><p>欢迎交流与分享经验22!</p></div></div></div></div><div class="widget"><h3 class="widget-title">分类</h3><div class="widget-body"><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/工程化建设/">工程化建设</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/">杂谈</a><span class="category-list-count">1</span></li></ul></div></div><div class="widget"><h3 class="widget-title">标签</h3><div class="widget-body"><ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Talking-to-oneself/">Talking to oneself</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/engineering/">engineering</a><span class="tag-list-count">1</span></li></ul></div></div><div class="widget"><h3 class="widget-title">标签云</h3><div class="widget-body tagcloud"><a href="/tags/Talking-to-oneself/" style="font-size:13px">Talking to oneself</a> <a href="/tags/engineering/" style="font-size:13px">engineering</a></div></div><div class="widget"><h3 class="widget-title">归档</h3><div class="widget-body"><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">1</span></li></ul></div></div><div class="widget"><h3 class="widget-title">最新文章</h3><div class="widget-body"><ul class="recent-post-list list-unstyled no-thumbnail"><li><div class="item-inner"><p class="item-category"><a class="category-link" href="/categories/工程化建设/">工程化建设</a></p><p class="item-title"><a href="/2021/12/16/engineering/coverage/" class="title">代码覆盖率</a></p><p class="item-date"><time datetime="2021-12-16T12:50:04.517Z" itemprop="datePublished">2021-12-16</time></p></div></li><li><div class="item-inner"><p class="item-category"><a class="category-link" href="/categories/杂谈/">杂谈</a></p><p class="item-title"><a href="/2021/07/15/my-heart/index/" class="title">搭一个小窝</a></p><p class="item-date"><time datetime="2021-07-15T12:36:19.443Z" itemprop="datePublished">2021-07-15</time></p></div></li></ul></div></div></div></aside><main class="main" role="main"><div class="content"><article id="post-engineering/coverage" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting"><div class="article-header"><h1 class="article-title" itemprop="name">代码覆盖率</h1><div class="article-meta"><span class="article-date"><i class="icon icon-calendar-check"></i> <a href="/2021/12/16/engineering/coverage/" class="article-date"><time datetime="2021-12-16T12:50:04.517Z" itemprop="datePublished">2021-12-16</time> </a></span><span class="article-category"><i class="icon icon-folder"></i> <a class="article-category-link" href="/categories/工程化建设/">工程化建设</a> </span><span class="article-tag"><i class="icon icon-tags"></i> <a class="article-tag-link" href="/tags/engineering/">engineering</a> </span><span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/12/16/engineering/coverage/#comments" class="article-comment-link">评论</a></span></div></div><div class="article-entry marked-body" itemprop="articleBody"><p>最近为了防止因为漏测导致线上问题，做了一些统计测试覆盖率的工作。这个过程中用到了一个检测代码覆盖率的工具，叫：istanbul。它主要能够从几个维度来分析对应的覆盖率。比如下面几个指标：</p><blockquote><ul><li>行覆盖率（line coverage）：是否每一行都执行了？</li><li>函数覆盖率（function coverage）：是否每个函数都调用了？</li><li>分支覆盖率（branch coverage）：是否每个if代码块都执行了？</li><li>语句覆盖率（statement coverage）：是否每个语句都执行了？</li></ul></blockquote><p>使用起来也比较简单：</p><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>Istanbul 是一个 npm 模块，安装非常简单，就一行命令。<br></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g istanbul</span><br></pre></td></tr></table></figure><p></p><h3 id="覆盖率测试"><a href="#覆盖率测试" class="headerlink" title="覆盖率测试"></a>覆盖率测试</h3><p>来看一个例子，怎么使用 Istanbul 。下面是脚本文件 simple.js 。<br></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var a = 1;</span><br><span class="line">var b = 1;</span><br><span class="line">if ((a + b) &gt; 2) &#123;</span><br><span class="line">  console.log(&apos;more than two&apos;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p></p><p>使用 istanbul cover 命令，就能得到覆盖率。<br></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ istanbul cover simple.js</span><br><span class="line"></span><br><span class="line">===== Coverage summary =====</span><br><span class="line">Statements   : 75% ( 3/4 )</span><br><span class="line">Branches     : 50% ( 1/2 )</span><br><span class="line">Functions    : 100% ( 0/0 )</span><br><span class="line">Lines        : 75% ( 3/4 )</span><br><span class="line">=============================</span><br></pre></td></tr></table></figure><p></p><p>返回结果显示，simple.js 有4个语句（statement），执行了3个；有2个分支（branch），执行了1个；有0个函数，调用了0个；有4行代码，执行了3行。</p><p>这条命令同时还生成了一个 coverage 子目录，其中的 coverage.json 文件包含覆盖率的原始数据，coverage/lcov-report 是可以在浏览器打开的覆盖率报告，其中有详细信息，到底哪些代码没有覆盖到。</p><h3 id="覆盖率门槛"><a href="#覆盖率门槛" class="headerlink" title="覆盖率门槛"></a>覆盖率门槛</h3><p>完美的覆盖率当然是 100%，但是现实中很难达到。需要有一个门槛，衡量覆盖率是否达标。</p><p>istanbul check-coverage 命令用来设置门槛，同时检查当前代码是否达标。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ istanbul check-coverage --statement 90</span><br><span class="line"></span><br><span class="line">ERROR: Coverage for statements (75%) does not meet global threshold (90%)</span><br></pre></td></tr></table></figure><p>上面命令设置语句覆盖率的门槛是 90% ，结果就报错了，因为实际覆盖率只有75%。</p><p>除了百分比门槛，我们还可以设置绝对值门槛，比如只允许有一个语句没有被覆盖到。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ istanbul check-coverage --statement -1</span><br></pre></td></tr></table></figure><p>上面命令使用负数，表示绝对值门槛。这样一来，上面的例子就通过了覆盖率测试，不会再报错了。</p><p>百分比门槛和绝对值门槛，可以结合使用。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ istanbul check-coverage --statement -5 --branch -3 --function 100</span><br></pre></td></tr></table></figure><p>上面命令设置了3个覆盖率门槛：5个语句、3个 if 代码块、100%的函数。注意，这三个门槛是”与”（and）的关系，只要有一个没有达标，就会报错。</p><h3 id="与测试框架的结合"><a href="#与测试框架的结合" class="headerlink" title="与测试框架的结合"></a>与测试框架的结合</h3><p>实际开发时，istanbul 总是与测试框架结合使用，下面以常用的 Mocha 框架为例。</p><p>sqrt.js 是一个计算平方根的脚本。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var My = &#123;</span><br><span class="line">  sqrt: function(x) &#123;</span><br><span class="line">    if (x &lt; 0) throw new Error(&quot;负值没有平方根&quot;);</span><br><span class="line">      return Math.exp(Math.log(x)/2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">module.exports = My;</span><br></pre></td></tr></table></figure><p>它的测试脚本 test.sqrt.js 放在 test 子目录。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var chai = require(&apos;chai&apos;);</span><br><span class="line">var expect = chai.expect;</span><br><span class="line">var My = require(&apos;../sqrt.js&apos;);</span><br><span class="line"></span><br><span class="line">describe(&quot;sqrt&quot;, function() &#123;</span><br><span class="line"></span><br><span class="line">  it(&quot;4的平方根应该等于2&quot;, function() &#123;</span><br><span class="line">    expect(My.sqrt(4)).to.equal(2);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  it(&quot;参数为负值时应该报错&quot;, function() &#123;</span><br><span class="line">    expect(function()&#123; My.sqrt(-1); &#125;).to.throw(&quot;负值没有平方根&quot;);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure><p>然后，执行下面的命令得到代码覆盖率。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">$ istanbul cover _mocha</span><br><span class="line">// or</span><br><span class="line">$ istanbul cover _mocha test/test.sqrt.js</span><br><span class="line"></span><br><span class="line">  sqrt</span><br><span class="line">    ✓ 4的平方根应该等于2 </span><br><span class="line">    ✓ 参数为负值时应该报错 </span><br><span class="line"></span><br><span class="line">  2 passing (7ms)</span><br><span class="line"></span><br><span class="line">===== Coverage summary =====</span><br><span class="line">Statements   : 100% ( 5/5 )</span><br><span class="line">Branches     : 100% ( 2/2 )</span><br><span class="line">Functions    : 100% ( 1/1 )</span><br><span class="line">Lines        : 100% ( 4/4 )</span><br><span class="line">=============================</span><br></pre></td></tr></table></figure><p>上面命令中，istanbul cover 命令后面跟的是 _mocha 命令，前面的下划线是不能省略的。</p><p>因为，mocha 和 _mocha 是两个不同的命令，前者会新建一个进程执行测试，而后者是在当前进程（即 istanbul 所在的进程）执行测试，只有这样， istanbul 才会捕捉到覆盖率数据。其他测试框架也是如此，必须在同一个进程执行测试。</p><p>如果要向 mocha 传入参数，可以写成下面的样子。<br></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ istanbul cover _mocha -- tests/test.sqrt.js -R spec</span><br></pre></td></tr></table></figure><p></p><p>上面命令中，两根连词线后面的部分，都会被当作参数传入 Mocha 。如果不加那两根连词线，它们就会被当作 istanbul 的参数（参考链接1，2）。</p><p>如果想在浏览器运行 Istanbul ，可以参考这篇文章。</p><p>五、忽略某些代码<br>istanbul 提供注释语法，允许某些代码不计入覆盖率。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var object = parameter || /* istanbul ignore next */ &#123;&#125;;</span><br></pre></td></tr></table></figure><p>上面代码是为 object 指定默认值（一个空对象）。如果由于种种原因，没有为 object 为空对象的情况写测试，可以用注释，不将这种情况计入覆盖率。注意，注释要写在”或”运算符的后面。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/* istanbul ignore if  */</span><br><span class="line">if (hardToReproduceError)) &#123;</span><br><span class="line">    return callback(hardToReproduceError);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>上面代码的 if 语句块，在计算覆盖率的时候会被忽略。</p></div><div class="article-footer"><blockquote class="mt-2x"><ul class="post-copyright list-unstyled"></ul><li class="post-copyright-link hidden-xs"><strong>本文链接：</strong> <a href="https://skhon.github.io/2021/12/16/engineering/coverage/" title="代码覆盖率" target="_blank" rel="external">https://skhon.github.io/2021/12/16/engineering/coverage/</a></li><li class="post-copyright-license"><strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！</li></blockquote></div></article><section id="comments"><div id="vcomments"></div></section></div><nav class="bar bar-footer clearfix" data-stick-bottom><div class="bar-inner"><ul class="pager pull-left"><li class="next"><a href="/2021/07/15/my-heart/index/" title="搭一个小窝"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a></li></ul><button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button><div class="bar-right"><div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div></div></div></nav><div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog"><div class="modal-dialog" role="document"><div class="modal-content donate"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><div class="modal-body"><div class="donate-box"><div class="donate-head"><p>感谢您的支持，我会继续努力的!</p></div><div class="tab-content"><div role="tabpanel" class="tab-pane fade active in" id="alipay"><div class="donate-payimg"><img src="/images/donate/alipay.png" alt="扫码支持" title="扫一扫"></div><p class="text-muted mv">扫码打赏，你说多少就多少</p><p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p></div><div role="tabpanel" class="tab-pane fade" id="wechatpay"><div class="donate-payimg"><img src="/images/donate/weixin.png" alt="扫码支持" title="扫一扫"></div><p class="text-muted mv">扫码打赏，你说多少就多少</p><p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p></div></div><div class="donate-footer"><ul class="nav nav-tabs nav-justified" role="tablist"><li role="presentation" class="active"><a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a></li><li role="presentation" class=""><a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a></li></ul></div></div></div></div></div></div></main><script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script><script>window.jQuery||document.write('<script src="js/jquery.min.js"><\/script>')</script><script src="/js/plugin.min.js"></script><script src="/js/application.js"></script><script>window.INSIGHT_CONFIG={TRANSLATION:{POSTS:"文章",PAGES:"页面",CATEGORIES:"分类",TAGS:"标签",UNTITLED:"(未命名)"},ROOT_URL:"/",CONTENT_URL:"/content.json"}</script><script src="/js/insight.js"></script><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//cdn.jsdelivr.net/npm/valine"></script><script type="text/javascript">var GUEST=["nick","mail","link"],meta="nick,mail,link";meta=meta.split(",").filter(function(e){return-1<GUEST.indexOf(e)}),new Valine({el:"#vcomments",verify:!1,notify:!1,appId:"huAiR1yunesf5fNRhXNbEImX-gzGzoHsz",appKey:"VrPyyjDOa1dG6OnbJeKqJUXc",placeholder:"Just go go",avatar:"mm",meta:meta,pageSize:"10",visitor:!1})</script></body></html>
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>代码覆盖率 | SKHon的随笔</title>
+  <meta name="description" content="最近为了防止因为漏测导致线上问题，做了一些统计测试覆盖率的工作。这个过程中用到了一个检测代码覆盖率的工具，叫：istanbul。它主要能够从几个维度来分析对应的覆盖率。比如下面几个指标：   行覆盖率（line coverage）：是否每一行都执行了？ 函数覆盖率（function coverage）：是否每个函数都调用了？ 分支覆盖率（branch coverage）：是否每个if代码块都执行了">
+<meta name="keywords" content="engineering">
+<meta property="og:type" content="article">
+<meta property="og:title" content="代码覆盖率">
+<meta property="og:url" content="https://skhon.github.io/2021/12/16/engineering/coverage/index.html">
+<meta property="og:site_name" content="前端架构之路">
+<meta property="og:description" content="最近为了防止因为漏测导致线上问题，做了一些统计测试覆盖率的工作。这个过程中用到了一个检测代码覆盖率的工具，叫：istanbul。它主要能够从几个维度来分析对应的覆盖率。比如下面几个指标：   行覆盖率（line coverage）：是否每一行都执行了？ 函数覆盖率（function coverage）：是否每个函数都调用了？ 分支覆盖率（branch coverage）：是否每个if代码块都执行了">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-12-16T13:06:39.220Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="代码覆盖率">
+<meta name="twitter:description" content="最近为了防止因为漏测导致线上问题，做了一些统计测试覆盖率的工作。这个过程中用到了一个检测代码覆盖率的工具，叫：istanbul。它主要能够从几个维度来分析对应的覆盖率。比如下面几个指标：   行覆盖率（line coverage）：是否每一行都执行了？ 函数覆盖率（function coverage）：是否每个函数都调用了？ 分支覆盖率（branch coverage）：是否每个if代码块都执行了">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://skhon.github.io/2021/12/16/engineering/coverage/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="前端架构之路" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+  
+  
+</head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/skhon" target="_blank">
+          <img class="img-circle img-rotate" src="/images/my.png" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">SKHon</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Software Engineer</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> 北京</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验22!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/工程化建设/">工程化建设</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂谈/">杂谈</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Talking-to-oneself/">Talking to oneself</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/engineering/">engineering</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/Talking-to-oneself/" style="font-size: 13px;">Talking to oneself</a> <a href="/tags/engineering/" style="font-size: 13px;">engineering</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/工程化建设/">工程化建设</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/12/16/engineering/coverage/" class="title">代码覆盖率</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-12-16T12:50:04.517Z" itemprop="datePublished">2021-12-16</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/杂谈/">杂谈</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/07/15/my-heart/index/" class="title">搭一个小窝</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-07-15T12:36:19.443Z" itemprop="datePublished">2021-07-15</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-engineering/coverage" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      代码覆盖率
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/12/16/engineering/coverage/" class="article-date">
+	  <time datetime="2021-12-16T12:50:04.517Z" itemprop="datePublished">2021-12-16</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/工程化建设/">工程化建设</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/engineering/">engineering</a>
+  </span>
+
+
+        
+
+	<span class="article-read hidden-xs">
+    	<i class="icon icon-eye-fill" aria-hidden="true"></i>
+    	<span id="/2021/12/16/engineering/coverage/" class="leancloud_visitors"  data-flag-title="代码覆盖率">
+			<span class="leancloud-visitors-count">0</span>
+		</span>
+    </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/12/16/engineering/coverage/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>最近为了防止因为漏测导致线上问题，做了一些统计测试覆盖率的工作。这个过程中用到了一个检测代码覆盖率的工具，叫：istanbul。它主要能够从几个维度来分析对应的覆盖率。比如下面几个指标：</p>
+<blockquote>
+<ul>
+<li>行覆盖率（line coverage）：是否每一行都执行了？</li>
+<li>函数覆盖率（function coverage）：是否每个函数都调用了？</li>
+<li>分支覆盖率（branch coverage）：是否每个if代码块都执行了？</li>
+<li>语句覆盖率（statement coverage）：是否每个语句都执行了？</li>
+</ul>
+</blockquote>
+<p>使用起来也比较简单：</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>Istanbul 是一个 npm 模块，安装非常简单，就一行命令。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g istanbul</span><br></pre></td></tr></table></figure></p>
+<h3 id="覆盖率测试"><a href="#覆盖率测试" class="headerlink" title="覆盖率测试"></a>覆盖率测试</h3><p>来看一个例子，怎么使用 Istanbul 。下面是脚本文件 simple.js 。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var a = 1;</span><br><span class="line">var b = 1;</span><br><span class="line">if ((a + b) &gt; 2) &#123;</span><br><span class="line">  console.log(&apos;more than two&apos;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>使用 istanbul cover 命令，就能得到覆盖率。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ istanbul cover simple.js</span><br><span class="line"></span><br><span class="line">===== Coverage summary =====</span><br><span class="line">Statements   : 75% ( 3/4 )</span><br><span class="line">Branches     : 50% ( 1/2 )</span><br><span class="line">Functions    : 100% ( 0/0 )</span><br><span class="line">Lines        : 75% ( 3/4 )</span><br><span class="line">=============================</span><br></pre></td></tr></table></figure></p>
+<p>返回结果显示，simple.js 有4个语句（statement），执行了3个；有2个分支（branch），执行了1个；有0个函数，调用了0个；有4行代码，执行了3行。</p>
+<p>这条命令同时还生成了一个 coverage 子目录，其中的 coverage.json 文件包含覆盖率的原始数据，coverage/lcov-report 是可以在浏览器打开的覆盖率报告，其中有详细信息，到底哪些代码没有覆盖到。</p>
+<h3 id="覆盖率门槛"><a href="#覆盖率门槛" class="headerlink" title="覆盖率门槛"></a>覆盖率门槛</h3><p>完美的覆盖率当然是 100%，但是现实中很难达到。需要有一个门槛，衡量覆盖率是否达标。</p>
+<p>istanbul check-coverage 命令用来设置门槛，同时检查当前代码是否达标。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ istanbul check-coverage --statement 90</span><br><span class="line"></span><br><span class="line">ERROR: Coverage for statements (75%) does not meet global threshold (90%)</span><br></pre></td></tr></table></figure>
+<p>上面命令设置语句覆盖率的门槛是 90% ，结果就报错了，因为实际覆盖率只有75%。</p>
+<p>除了百分比门槛，我们还可以设置绝对值门槛，比如只允许有一个语句没有被覆盖到。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ istanbul check-coverage --statement -1</span><br></pre></td></tr></table></figure>
+<p>上面命令使用负数，表示绝对值门槛。这样一来，上面的例子就通过了覆盖率测试，不会再报错了。</p>
+<p>百分比门槛和绝对值门槛，可以结合使用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ istanbul check-coverage --statement -5 --branch -3 --function 100</span><br></pre></td></tr></table></figure>
+<p>上面命令设置了3个覆盖率门槛：5个语句、3个 if 代码块、100%的函数。注意，这三个门槛是”与”（and）的关系，只要有一个没有达标，就会报错。</p>
+<h3 id="与测试框架的结合"><a href="#与测试框架的结合" class="headerlink" title="与测试框架的结合"></a>与测试框架的结合</h3><p>实际开发时，istanbul 总是与测试框架结合使用，下面以常用的 Mocha 框架为例。</p>
+<p>sqrt.js 是一个计算平方根的脚本。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var My = &#123;</span><br><span class="line">  sqrt: function(x) &#123;</span><br><span class="line">    if (x &lt; 0) throw new Error(&quot;负值没有平方根&quot;);</span><br><span class="line">      return Math.exp(Math.log(x)/2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">module.exports = My;</span><br></pre></td></tr></table></figure>
+<p>它的测试脚本 test.sqrt.js 放在 test 子目录。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var chai = require(&apos;chai&apos;);</span><br><span class="line">var expect = chai.expect;</span><br><span class="line">var My = require(&apos;../sqrt.js&apos;);</span><br><span class="line"></span><br><span class="line">describe(&quot;sqrt&quot;, function() &#123;</span><br><span class="line"></span><br><span class="line">  it(&quot;4的平方根应该等于2&quot;, function() &#123;</span><br><span class="line">    expect(My.sqrt(4)).to.equal(2);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  it(&quot;参数为负值时应该报错&quot;, function() &#123;</span><br><span class="line">    expect(function()&#123; My.sqrt(-1); &#125;).to.throw(&quot;负值没有平方根&quot;);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>然后，执行下面的命令得到代码覆盖率。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">$ istanbul cover _mocha</span><br><span class="line">// or</span><br><span class="line">$ istanbul cover _mocha test/test.sqrt.js</span><br><span class="line"></span><br><span class="line">  sqrt</span><br><span class="line">    ✓ 4的平方根应该等于2 </span><br><span class="line">    ✓ 参数为负值时应该报错 </span><br><span class="line"></span><br><span class="line">  2 passing (7ms)</span><br><span class="line"></span><br><span class="line">===== Coverage summary =====</span><br><span class="line">Statements   : 100% ( 5/5 )</span><br><span class="line">Branches     : 100% ( 2/2 )</span><br><span class="line">Functions    : 100% ( 1/1 )</span><br><span class="line">Lines        : 100% ( 4/4 )</span><br><span class="line">=============================</span><br></pre></td></tr></table></figure>
+<p>上面命令中，istanbul cover 命令后面跟的是 _mocha 命令，前面的下划线是不能省略的。</p>
+<p>因为，mocha 和 _mocha 是两个不同的命令，前者会新建一个进程执行测试，而后者是在当前进程（即 istanbul 所在的进程）执行测试，只有这样， istanbul 才会捕捉到覆盖率数据。其他测试框架也是如此，必须在同一个进程执行测试。</p>
+<p>如果要向 mocha 传入参数，可以写成下面的样子。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ istanbul cover _mocha -- tests/test.sqrt.js -R spec</span><br></pre></td></tr></table></figure></p>
+<p>上面命令中，两根连词线后面的部分，都会被当作参数传入 Mocha 。如果不加那两根连词线，它们就会被当作 istanbul 的参数（参考链接1，2）。</p>
+<p>如果想在浏览器运行 Istanbul ，可以参考这篇文章。</p>
+<p>五、忽略某些代码<br>istanbul 提供注释语法，允许某些代码不计入覆盖率。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var object = parameter || /* istanbul ignore next */ &#123;&#125;;</span><br></pre></td></tr></table></figure>
+<p>上面代码是为 object 指定默认值（一个空对象）。如果由于种种原因，没有为 object 为空对象的情况写测试，可以用注释，不将这种情况计入覆盖率。注意，注释要写在”或”运算符的后面。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/* istanbul ignore if  */</span><br><span class="line">if (hardToReproduceError)) &#123;</span><br><span class="line">    return callback(hardToReproduceError);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面代码的 if 语句块，在计算覆盖率的时候会被忽略。</p>
+
+      
+    </div>
+    <div class="article-footer">
+      
+  
+
+    <blockquote class="mt-2x">
+      <ul class="post-copyright list-unstyled"></ul>
+        <li class="post-copyright-link hidden-xs">
+          <strong>本文链接：</strong>
+          <a href="https://skhon.github.io/2021/12/16/engineering/coverage/" title="代码覆盖率" target="_blank" rel="external">https://skhon.github.io/2021/12/16/engineering/coverage/</a>
+        </li>
+        <li class="post-copyright-license">
+          <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+        </li>
+      </ul>
+  </blockquote>
+
+   
+
+
+<!--  -->
+<!-- 
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/skhon" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/my.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/skhon" target="_blank"><span class="text-dark">SKHon</span><small class="ml-1x">Software Engineer</small></a></h3>
+        <div>个人简介111。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+ -->
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2021/07/15/my-heart/index/" title="搭一个小窝"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipay.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/weixin.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: 'huAiR1yunesf5fNRhXNbEImX-gzGzoHsz',
+    appKey: 'VrPyyjDOa1dG6OnbJeKqJUXc',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: true
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>

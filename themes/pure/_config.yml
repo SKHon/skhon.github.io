@@ -135,7 +135,7 @@ comment:
     avatar: mm # gravatar style
     meta: nick,mail,link # custom comment header
     pageSize: 10 # pagination size
-    visitor: false # Article reading statistic https://valine.js.org/visitor.html
+    visitor: true # Article reading statistic https://valine.js.org/visitor.html
 
 # douban 豆瓣书单
 # Api：
