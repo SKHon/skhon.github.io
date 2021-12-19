@@ -68,3 +68,9 @@ o2 = {
 }
 ```
 这么会让o1.__proto__ = {b: 2},而o1的__proto__就是Object.prototype，随意就会导致Object的原型对象被悄悄的改了。
+
+如何缓解原型链漏洞呢？这里提供了几种方式可参考：
+> Object.freeze 将缓解几乎所有情况。冻结 Object 阻止添加新的 Prototype。
+> 使用模式验证确保 JSON 数据包含预期属性，从而删除 JSON 中出现的 _proto_。
+> 使用映射原语。它在 EcmaScript6 标准中引入，目前在 NodeJS 环境中备受支持。
+> 使用 Object.creat(null) 函数创建的Objects 不具有 _proto_ 属性。
