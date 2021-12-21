@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://skhon.github.io/2021/12/20/architecture/base/</loc>
+    
+    <lastmod>2021-12-21T03:04:49.777Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://skhon.github.io/2021/12/17/security/prototype/</loc>
     
     <lastmod>2021-12-19T04:40:05.026Z</lastmod>
@@ -93,14 +100,14 @@
   </url>
   
   <url>
-    <loc>https://skhon.github.io/guestbook/index.html</loc>
+    <loc>https://skhon.github.io/example/index.html</loc>
     
     <lastmod>2021-07-15T12:28:46.549Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://skhon.github.io/example/index.html</loc>
+    <loc>https://skhon.github.io/guestbook/index.html</loc>
     
     <lastmod>2021-07-15T12:28:46.549Z</lastmod>
     
