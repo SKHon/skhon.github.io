@@ -4,13 +4,14 @@ categories: 安全
 tags: [Security]
 comments: true
 copyright: true
+toc: true
 ---
 
 安全问题是公司非常重视的问题，但是在我面试过程中，很多候选人只知道xss、csrf这两种，因为多数面经中，只会提到这两种。可以看到，前端工程师在平时的开发中，还是很少考虑安全问题的。由于本人在公司负责工程化建设相关工作，会涉及到项目的安全漏洞检测，所以后续多写一些相关的文章。
 今天聊的是原型链污染攻击问题，我们先以一个非常简单的程序入手，我们知道在JavaScript中，一个对象有一个__proto__属性，它是指向Object.prototype的，像这样：
 ```
 let obj = {};
-console.log(obj.__proto === Object.prototype); // true
+console.log(obj.__proto__ === Object.prototype); // true
 ```
 
 有了这个前置知识后，大家可以看下面的程序会输出什么。
@@ -73,4 +74,4 @@ o2 = {
 > Object.freeze 将缓解几乎所有情况。冻结 Object 阻止添加新的 Prototype。
 > 使用模式验证确保 JSON 数据包含预期属性，从而删除 JSON 中出现的 _proto_。
 > 使用映射原语。它在 EcmaScript6 标准中引入，目前在 NodeJS 环境中备受支持。
-> 使用 Object.creat(null) 函数创建的Objects 不具有 _proto_ 属性。
+> 使用 Object.create(null) 函数创建的Objects 不具有 _proto_ 属性。

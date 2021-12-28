@@ -4,6 +4,7 @@ categories: 架构
 tags: [Architecture]
 comments: true
 copyright: false
+toc: true
 ---
 
 经常有人问，架构师是干嘛的？那么今天谈谈，架构师的职责是什么。
