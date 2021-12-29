@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://skhon.github.io/2021/12/20/architecture/base/</loc>
+    <lastmod>2021-12-29</lastmod>
+  </url>
+  <url>
     <loc>https://skhon.github.io/2021/12/17/security/prototype/</loc>
     <lastmod>2021-12-28</lastmod>
   </url>
@@ -14,10 +18,6 @@
   </url>
   <url>
     <loc>https://skhon.github.io/2021/12/16/engineering/coverage/</loc>
-    <lastmod>2021-12-28</lastmod>
-  </url>
-  <url>
-    <loc>https://skhon.github.io/2021/12/20/architecture/base/</loc>
     <lastmod>2021-12-28</lastmod>
   </url>
   <url>
