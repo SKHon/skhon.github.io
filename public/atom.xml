@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://skhon.github.io/"/>
-  <updated>2022-01-07T09:50:55.930Z</updated>
+  <updated>2022-03-03T09:14:05.948Z</updated>
   <id>https://skhon.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>如何搭建一个文档站点</title>
+    <link href="https://skhon.github.io/2022/03/03/engineering/documentation/"/>
+    <id>https://skhon.github.io/2022/03/03/engineering/documentation/</id>
+    <published>2022-03-03T09:04:51.792Z</published>
+    <updated>2022-03-03T09:14:05.948Z</updated>
+    
+    <content type="html"><![CDATA[<p>关于搭建一个好的文档站点，对于我们平时开发的项目、框架了都能有一个好的说明，方便用户使用。这里收集一下，方便后续查询使用。</p><p>比较好用的一个工具<a href="https://docusaurus.io/" target="_blank" rel="noopener">Docusaurus</a>。里面有一些好用的 <a href="https://docusaurus.io/showcase" target="_blank" rel="noopener">模板</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;关于搭建一个好的文档站点，对于我们平时开发的项目、框架了都能有一个好的说明，方便用户使用。这里收集一下，方便后续查询使用。&lt;/p&gt;
+&lt;p&gt;比较好用的一个工具&lt;a href=&quot;https://docusaurus.io/&quot; target=&quot;_blank&quot; rel=&quot;noope
+      
+    
+    </summary>
+    
+      <category term="工程化建设" scheme="https://skhon.github.io/categories/%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%BB%BA%E8%AE%BE/"/>
+    
+    
+      <category term="Engineering" scheme="https://skhon.github.io/tags/Engineering/"/>
+    
+  </entry>
   
   <entry>
     <title>雍正王朝观后感</title>

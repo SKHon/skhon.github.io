@@ -4,6 +4,28 @@
   
     
     <entry>
+      <title><![CDATA[如何搭建一个文档站点]]></title>
+      <url>https://skhon.github.io/2022/03/03/engineering/documentation/</url>
+      <content type="html"><![CDATA[<p>关于搭建一个好的文档站点，对于我们平时开发的项目、框架了都能有一个好的说明，方便用户使用。这里收集一下，方便后续查询使用。</p>
+<p>比较好用的一个工具<a href="https://docusaurus.io/" target="_blank" rel="noopener">Docusaurus</a>。里面有一些好用的 <a href="https://docusaurus.io/showcase" target="_blank" rel="noopener">模板</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 工程化建设 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Engineering </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[雍正王朝观后感]]></title>
       <url>https://skhon.github.io/2022/01/07/my-heart/yongzhengwangchao/</url>
       <content type="html"><![CDATA[<h1 id="读后感"><a href="#读后感" class="headerlink" title="读后感"></a>读后感</h1><p>读二月河前辈的《康熙王朝》《雍正王朝》，常常使人反思。康熙一朝凡经六十余年，整整一个甲子年。内平鳌拜掌实权，再平三藩稳定天下，接着治黄河收台湾西征葛尔丹，种种大事不胜枚举。可以说，康熙大帝在少年青年壮年之际确实是千古一帝。可是到了老年，却没有在几个儿子的管理上，最重要的是在接班人的管理和选择上却真的是种种风波，九子夺嫡，那真的是你方唱罢我登场，闹了个不亦乐乎。</p>
