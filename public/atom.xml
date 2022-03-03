@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://skhon.github.io/"/>
-  <updated>2022-03-03T09:14:05.948Z</updated>
+  <updated>2022-03-03T09:35:19.945Z</updated>
   <id>https://skhon.github.io/</id>
   
   <author>
@@ -21,16 +21,16 @@
     <link href="https://skhon.github.io/2022/03/03/engineering/documentation/"/>
     <id>https://skhon.github.io/2022/03/03/engineering/documentation/</id>
     <published>2022-03-03T09:04:51.792Z</published>
-    <updated>2022-03-03T09:14:05.948Z</updated>
+    <updated>2022-03-03T09:35:19.945Z</updated>
     
-    <content type="html"><![CDATA[<p>关于搭建一个好的文档站点，对于我们平时开发的项目、框架了都能有一个好的说明，方便用户使用。这里收集一下，方便后续查询使用。</p><p>比较好用的一个工具<a href="https://docusaurus.io/" target="_blank" rel="noopener">Docusaurus</a>。里面有一些好用的 <a href="https://docusaurus.io/showcase" target="_blank" rel="noopener">模板</a></p>]]></content>
+    <content type="html"><![CDATA[<p>关于搭建一个好的文档站点，对于我们平时开发的项目、框架了都能有一个好的说明，方便用户使用。这里收集一下，方便后续查询使用。</p><h2 id="Docusaurus"><a href="#Docusaurus" class="headerlink" title="Docusaurus"></a>Docusaurus</h2><p>比较好用的一个工具<a href="https://docusaurus.io/" target="_blank" rel="noopener">Docusaurus</a>。里面有一些好用的 <a href="https://docusaurus.io/showcase" target="_blank" rel="noopener">模板</a></p><h2 id="vuepress"><a href="#vuepress" class="headerlink" title="vuepress"></a>vuepress</h2><p>还有一个好用的<a href="https://vuepress.vuejs.org/zh/" target="_blank" rel="noopener">vuepress</a></p>]]></content>
     
     <summary type="html">
     
       
       
         &lt;p&gt;关于搭建一个好的文档站点，对于我们平时开发的项目、框架了都能有一个好的说明，方便用户使用。这里收集一下，方便后续查询使用。&lt;/p&gt;
-&lt;p&gt;比较好用的一个工具&lt;a href=&quot;https://docusaurus.io/&quot; target=&quot;_blank&quot; rel=&quot;noope
+&lt;h2 id=&quot;Docusaurus&quot;&gt;&lt;a href=&quot;#Docusaurus&quot; class=&quot;headerlink&quot; title=&quot;Doc
       
     
     </summary>

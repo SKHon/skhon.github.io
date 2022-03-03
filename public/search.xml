@@ -7,7 +7,8 @@
       <title><![CDATA[如何搭建一个文档站点]]></title>
       <url>https://skhon.github.io/2022/03/03/engineering/documentation/</url>
       <content type="html"><![CDATA[<p>关于搭建一个好的文档站点，对于我们平时开发的项目、框架了都能有一个好的说明，方便用户使用。这里收集一下，方便后续查询使用。</p>
-<p>比较好用的一个工具<a href="https://docusaurus.io/" target="_blank" rel="noopener">Docusaurus</a>。里面有一些好用的 <a href="https://docusaurus.io/showcase" target="_blank" rel="noopener">模板</a></p>
+<h2 id="Docusaurus"><a href="#Docusaurus" class="headerlink" title="Docusaurus"></a>Docusaurus</h2><p>比较好用的一个工具<a href="https://docusaurus.io/" target="_blank" rel="noopener">Docusaurus</a>。里面有一些好用的 <a href="https://docusaurus.io/showcase" target="_blank" rel="noopener">模板</a></p>
+<h2 id="vuepress"><a href="#vuepress" class="headerlink" title="vuepress"></a>vuepress</h2><p>还有一个好用的<a href="https://vuepress.vuejs.org/zh/" target="_blank" rel="noopener">vuepress</a></p>
 ]]></content>
       
         <categories>
