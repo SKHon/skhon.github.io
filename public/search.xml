@@ -4,6 +4,28 @@
   
     
     <entry>
+      <title><![CDATA[【node监控】关于node监控的一些整理]]></title>
+      <url>https://skhon.github.io/2022/05/15/engineering/node-apm/</url>
+      <content type="html"><![CDATA[<h2 id="业界开源工具"><a href="#业界开源工具" class="headerlink" title="业界开源工具"></a>业界开源工具</h2><p>阿里的 <a href="https://www.yuque.com/hyj1991/easy-monitor/past-and-present" target="_blank" rel="noopener">easy monitor</a></p>
+<h2 id="关于node的一些调试技巧"><a href="#关于node的一些调试技巧" class="headerlink" title="关于node的一些调试技巧"></a>关于node的一些调试技巧</h2><p><a href="https://wizardforcel.gitbooks.io/node-in-debugging/content/" target="_blank" rel="noopener">node调试指南</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 工程化建设 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Engineering </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[【面试总结】前端面试题目]]></title>
       <url>https://skhon.github.io/2022/05/14/interview/detail/</url>
       <content type="html"><![CDATA[<p><a href="https://github.com/haizlin/fe-interview" target="_blank" rel="noopener">前端面试</a></p>

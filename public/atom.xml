@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://skhon.github.io/"/>
-  <updated>2022-05-14T12:02:23.834Z</updated>
+  <updated>2022-05-14T16:30:12.533Z</updated>
   <id>https://skhon.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【node监控】关于node监控的一些整理</title>
+    <link href="https://skhon.github.io/2022/05/15/engineering/node-apm/"/>
+    <id>https://skhon.github.io/2022/05/15/engineering/node-apm/</id>
+    <published>2022-05-14T16:18:26.359Z</published>
+    <updated>2022-05-14T16:30:12.533Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="业界开源工具"><a href="#业界开源工具" class="headerlink" title="业界开源工具"></a>业界开源工具</h2><p>阿里的 <a href="https://www.yuque.com/hyj1991/easy-monitor/past-and-present" target="_blank" rel="noopener">easy monitor</a></p><h2 id="关于node的一些调试技巧"><a href="#关于node的一些调试技巧" class="headerlink" title="关于node的一些调试技巧"></a>关于node的一些调试技巧</h2><p><a href="https://wizardforcel.gitbooks.io/node-in-debugging/content/" target="_blank" rel="noopener">node调试指南</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;业界开源工具&quot;&gt;&lt;a href=&quot;#业界开源工具&quot; class=&quot;headerlink&quot; title=&quot;业界开源工具&quot;&gt;&lt;/a&gt;业界开源工具&lt;/h2&gt;&lt;p&gt;阿里的 &lt;a href=&quot;https://www.yuque.com/hyj1991/easy-monito
+      
+    
+    </summary>
+    
+      <category term="工程化建设" scheme="https://skhon.github.io/categories/%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%BB%BA%E8%AE%BE/"/>
+    
+    
+      <category term="Engineering" scheme="https://skhon.github.io/tags/Engineering/"/>
+    
+  </entry>
   
   <entry>
     <title>【面试总结】前端面试题目</title>
