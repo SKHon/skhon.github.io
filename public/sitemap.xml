@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://skhon.github.io/2022/05/18/engineering/dep/</loc>
+    
+    <lastmod>2022-05-18T15:50:57.918Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://skhon.github.io/2022/05/18/engineering/monorepo/</loc>
+    
+    <lastmod>2022-05-18T15:35:44.921Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://skhon.github.io/2022/05/16/engineering/ui-auto-test2/</loc>
     
     <lastmod>2022-05-16T15:22:57.072Z</lastmod>
