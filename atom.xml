@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://skhon.github.io/"/>
-  <updated>2022-05-18T15:50:57.918Z</updated>
+  <updated>2022-08-26T08:26:38.699Z</updated>
   <id>https://skhon.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【稳定性建设】UI自动化测试-测试用例自动录制</title>
+    <link href="https://skhon.github.io/2022/08/26/engineering/ui-auto-test3/"/>
+    <id>https://skhon.github.io/2022/08/26/engineering/ui-auto-test3/</id>
+    <published>2022-08-26T08:25:46.603Z</published>
+    <updated>2022-08-26T08:26:38.699Z</updated>
+    
+    <content type="html"><![CDATA[<p>先记录：<a href="https://www.yuque.com/artist/uirecorder/hbqzpl" target="_blank" rel="noopener">UIRecorder</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;先记录：&lt;a href=&quot;https://www.yuque.com/artist/uirecorder/hbqzpl&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;UIRecorder&lt;/a&gt;&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+      <category term="工程化建设" scheme="https://skhon.github.io/categories/%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%BB%BA%E8%AE%BE/"/>
+    
+    
+      <category term="Engineering" scheme="https://skhon.github.io/tags/Engineering/"/>
+    
+  </entry>
   
   <entry>
     <title>【稳定性建设】项目依赖分析</title>
