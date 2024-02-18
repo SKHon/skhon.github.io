@@ -1,7 +1,7 @@
 ---
 title: 【基础架构】构建插件机制的一把利器tapable
 categories: 工程化建设
-tags: [Architecture]
+tags: [Engineering]
 comments: true
 copyright: true
 toc: true
