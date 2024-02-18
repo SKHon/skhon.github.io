@@ -184,13 +184,6 @@
   </url>
   
   <url>
-    <loc>https://skhon.github.io/reward/index.html</loc>
-    
-    <lastmod>2021-07-15T12:28:46.671Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://skhon.github.io/offline.html</loc>
     
     <lastmod>2021-07-15T12:28:46.671Z</lastmod>
@@ -198,14 +191,21 @@
   </url>
   
   <url>
-    <loc>https://skhon.github.io/guestbook/index.html</loc>
+    <loc>https://skhon.github.io/reward/index.html</loc>
+    
+    <lastmod>2021-07-15T12:28:46.671Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://skhon.github.io/example/index.html</loc>
     
     <lastmod>2021-07-15T12:28:46.549Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://skhon.github.io/example/index.html</loc>
+    <loc>https://skhon.github.io/guestbook/index.html</loc>
     
     <lastmod>2021-07-15T12:28:46.549Z</lastmod>
     
